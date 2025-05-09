@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore eco-friendly attractions and natural beauty spots in Brighton and Hove">
+  <title>Brighton Attractions</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!-- Skip to main content link for screen readers -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- Fixed Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" role="navigation" aria-label="Main navigation">
+  <div class="container-fluid px-0">
+    <!-- Logo -->
+    <a class="navbar-brand d-flex align-items-center" href="index.html" aria-label="GreenBrighton Home">
+      <img src="images/Logo.png" alt="GreenBrighton Logo featuring a green leaf design" width="70" height="70" class="d-inline-block logo-img">
+      <span class="ms-2">GreenBrighton</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="attractions.html" aria-current="page">Attractions</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="blogs.html">Blogs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="calendar.html" aria-label="View events calendar">Calendar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="map.html" aria-label="View interactive map">Map</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="our-impact.html" aria-label="View our environmental impact">Our Impact</a>
+        </li>
+        <li class="nav-item" id="auth-menu-item">
+          <a class="nav-link" id="auth-link" href="signUp.html" aria-label="Sign in or create account">
+            <i class="fas fa-user me-1" aria-hidden="true"></i><span id="auth-text">Sign In</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<main id="main-content">
+  <!-- Attractions Section -->
+  <div class="container-fluid mt-5 attractions-section attractions-page-section" role="region" aria-label="Popular Attractions">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h1 class="display-4" id="attractions-heading">Popular Attractions</h1>
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <p class="lead text-muted">Discover Brighton's most beautiful green spaces and eco-friendly attractions, from stunning parks to historic landmarks</p>
+            <div class="attractions-divider" aria-hidden="true">
+              <span><i class="fas fa-leaf text-success"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scrollable-attractions">
+      <button class="scroll-indicator left-indicator" aria-label="Scroll to previous attractions">
+        <i class="fas fa-angle-left" aria-hidden="true"></i>
+      </button>
+      <div class="attractions-container" aria-labelledby="attractions-heading">
+        <!-- Attraction 1 -->
+        <div class="attraction-card" role="article" aria-labelledby="attraction-1-title">
+          <div class="attraction-img">
+            <img src="images/BrightonPavilion.jpg" alt="Royal Pavilion Gardens with exotic plants and historic pavilion building">
+            <div class="attraction-badge" aria-label="Featured attraction">Featured</div>
+          </div>
+          <div class="attraction-content">
+            <h3 id="attraction-1-title">Royal Pavilion Gardens</h3>
+            <p>A beautiful regency era garden in the heart of Brighton.</p>
+            <a href="#" class="btn btn-outline-primary learn-more-btn" 
+               data-attraction-title="Royal Pavilion Gardens" 
+               data-attraction-img="images/BrightonPavilion.jpg"
+               data-attraction-description="The Royal Pavilion Gardens surround the iconic Royal Pavilion, King George IV's seaside palace. This beautiful regency era garden in the heart of Brighton features lush lawns, exotic plants, and carefully maintained flowerbeds that reflect the Pavilion's Indo-Gothic style. The gardens are a tranquil oasis in the busy city center and are maintained using environmentally sustainable methods. They provide a perfect picnic spot and often host cultural events and festivals throughout the year."
+               aria-label="Learn more about Royal Pavilion Gardens">Learn More</a>
+          </div>
+        </div>
+
+        <!-- Attraction 2 -->
+        <div class="attraction-card" role="article" aria-labelledby="attraction-2-title">
+          <div class="attraction-img">
+            <img src="images/Brighton-Museum-Art-Gallery.jpg" alt="Brighton Museum and Art Gallery exterior and exhibition hall">
+          </div>
+          <div class="attraction-content">
+            <h3 id="attraction-2-title">Brighton Museum and Art Gallery</h3>
+            <p>Discover fascinating art and history collections in this iconic museum.</p>
+            <a href="#" class="btn btn-outline-primary learn-more-btn"
+               data-attraction-title="Brighton Museum and Art Gallery"
+               data-attraction-img="images/Brighton-Museum-Art-Gallery.jpg"
+               data-attraction-description="Located in the cultural heart of the city, Brighton Museum and Art Gallery offers a fascinating insight into Brighton's history and beyond. The museum houses diverse collections including fine art, fashion, natural sciences, and artifacts from around the world. Their commitment to sustainability includes energy-efficient lighting, eco-friendly exhibition materials, and programs highlighting environmental conservation. The museum frequently features exhibits on climate change and ecological awareness, making it both educational and environmentally conscious."
+               aria-label="Learn more about Brighton Museum and Art Gallery">Learn More</a>
+          </div>
+        </div>
+
+        <!-- Attraction 3 -->
+        <div class="attraction-card" role="article" aria-labelledby="attraction-3-title">
+          <div class="attraction-img">
+            <img src="images/SevenSisters.jpeg" alt="Seven Sisters Country Park showing white chalk cliffs along the coastline">
+            <div class="attraction-badge" aria-label="Popular attraction">Popular</div>
+          </div>
+          <div class="attraction-content">
+            <h3 id="attraction-3-title">Seven Sisters Country Park</h3>
+            <p>Stunning chalk cliffs and meandering river valley.</p>
+            <a href="#" class="btn btn-outline-primary learn-more-btn"
+               data-attraction-title="Seven Sisters Country Park"
+               data-attraction-img="images/SevenSisters.jpeg"
+               data-attraction-description="Seven Sisters Country Park features 280 hectares of chalk cliffs, meandering river valley and open chalk grassland. It's a perfect example of how the South Downs meet the sea. The park is named after the seven distinct hills of the cliffs. The area is a haven for wildlife with many rare and protected species. The South Downs National Park Authority maintains the landscape through sustainable practices, including traditional grazing to manage grasslands. Visitors can enjoy hiking, birdwatching, and spectacular views while learning about conservation through interpretive displays."
+               aria-label="Learn more about Seven Sisters Country Park">Learn More</a>
+          </div>
+        </div>
+
+        <!-- Attraction 4 -->
+        <div class="attraction-card" role="article" aria-labelledby="attraction-4-title">
+          <div class="attraction-img">
+            <img src="images/Brighton-Pier.jpg" alt="Brighton Palace Pier extending into the sea with amusement rides and attractions">
+            <div class="attraction-badge" aria-label="Must see attraction">Must See</div>
+          </div>
+          <div class="attraction-content">
+            <h3 id="attraction-4-title">Brighton Palace Pier</h3>
+            <p>Brighton Palace Pier is a popular pier located in Brighton, England, known for its entertainment, attractions, and iconic status.</p>
+            <a href="#" class="btn btn-outline-primary learn-more-btn"
+               data-attraction-title="Brighton Palace Pier"
+               data-attraction-img="images/Brighton-Pier.jpg"
+               data-attraction-description="Built in 1899, Brighton Palace Pier is one of the most iconic landmarks of the Sussex coast. This Victorian pleasure pier extends 1,722 feet into the English Channel and offers traditional seaside entertainment for all ages. The pier has been implementing green initiatives including LED lighting systems, waste reduction programs, and energy-efficient ride operations. They participate in local beach clean-up events and have information boards explaining marine conservation. It's a perfect example of how historical attractions can adapt to modern environmental standards while maintaining their charm."
+               aria-label="Learn more about Brighton Palace Pier">Learn More</a>
+          </div>
+        </div>
+
+        <!-- Attraction 5 -->
+        <div class="attraction-card" role="article" aria-labelledby="attraction-5-title">
+          <div class="attraction-img">
+            <img src="images/Preston-Manor.jpg" alt="Preston Manor historic house with gardens and period architecture">
+          </div>
+          <div class="attraction-content">
+            <h3 id="attraction-5-title">Preston Manor & Gardens</h3>
+            <p>Home of the Stanford family, where the "upstairs-downstairs" life of Edwardian society comes alive.</p>
+            <a href="#" class="btn btn-outline-primary learn-more-btn"
+               data-attraction-title="Preston Manor & Gardens"
+               data-attraction-img="images/Preston-Manor.jpg"
+               data-attraction-description="Preston Manor is a historic house dating back to the 13th century, though most of what visitors see today is from its Edwardian period. The walled garden and estate showcase heritage planting schemes and sustainable gardening practices. The gardens include organically maintained flowerbeds, a kitchen garden growing heritage vegetables, and wildflower areas that support local pollinators. The conservation team works to preserve both the historical aspects of the property and enhance its natural biodiversity, making it a living example of how historic properties can embrace green practices."
+               aria-label="Learn more about Preston Manor and Gardens">Learn More</a>
+          </div>
+        </div>
+      </div>
+      <button class="scroll-indicator right-indicator" aria-label="Scroll to next attractions">
+        <i class="fas fa-angle-right" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Favorites Section -->
+  <section class="container-fluid bg-light py-5" id="favorites-section" aria-labelledby="favorites-heading">
+    <div class="container">
+      <h2 id="favorites-heading"><i class="fas fa-heart text-danger me-2" aria-hidden="true"></i>My Favorite Attractions</h2>
+      <p class="mb-4">Your personalized collection of Brighton's best places</p>
+      
+      <!-- No favorites message (shown by default, hidden when favorites exist) -->
+      <div id="no-favorites-message" class="text-center py-5" aria-live="polite">
+        <i class="far fa-heart fa-3x mb-3 text-secondary" aria-hidden="true"></i>
+        <h3 class="text-secondary">No Favorites Yet</h3>
+        <p class="text-muted">Click the "Add to Favorites" button on any attraction to add it to your collection.</p>
+      </div>
+      
+      <!-- Favorites container (hidden by default, shown when favorites exist) -->
+      <div id="favorites-container" class="row g-4" style="display: none;" aria-live="polite">
+        <!-- Favorite attractions will be added here dynamically -->
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h3 class="h5">Contact Us</h3>
+        <address>
+          <p>Email: <a href="mailto:info@greenbrighton.com">info@greenbrighton.com</a></p>
+          <p>Phone: <a href="tel:+441234567890">+44 123 456 7890</a></p>
+        </address>
+      </div>
+      <div class="col-md-4">
+        <h3 class="h5">Quick Links</h3>
+        <ul class="list-unstyled">
+          <li><a href="#" aria-label="Read our privacy policy">Privacy Policy</a></li>
+          <li><a href="#" aria-label="Read our terms of service">Terms of Service</a></li>
+          <li><a href="#" aria-label="View sitemap">Sitemap</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h3 class="h5">Follow Us</h3>
+        <div class="social-links" aria-label="Social media links">
+          <a href="#" aria-label="Visit our Facebook page" class="social-link"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+          <a href="#" aria-label="Visit our Twitter page" class="social-link"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+          <a href="#" aria-label="Visit our Instagram page" class="social-link"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col text-center">
+        <p>&copy; 2024 GreenBrighton. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Attraction Details Modal -->
+<div class="modal fade" id="attractionModal" tabindex="-1" aria-labelledby="attractionModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="attractionModalLabel">Attraction Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <img id="modalAttractionImg" src="" alt="Detailed view of the selected attraction" class="img-fluid rounded mb-3">
+          </div>
+          <div class="col-md-6">
+            <h3 id="modalAttractionTitle"></h3>
+            <p id="modalAttractionDescription"></p>
+          </div>
+        </div>
+        <div class="additional-info mt-4">
+          <h4>Sustainability Features</h4>
+          <ul id="sustainabilityFeatures">
+            <li><i class="fas fa-leaf text-success me-2" aria-hidden="true"></i> Environmentally sustainable maintenance</li>
+            <li><i class="fas fa-recycle text-success me-2" aria-hidden="true"></i> Waste reduction initiatives</li>
+            <li><i class="fas fa-seedling text-success me-2" aria-hidden="true"></i> Support for local biodiversity</li>
+          </ul>
+        </div>
+        <div class="visitor-info mt-4">
+          <h4>Visitor Information</h4>
+          <div class="row">
+            <div class="col-md-6">
+              <p><i class="fas fa-clock me-2" aria-hidden="true"></i> <strong>Opening Hours:</strong> <span id="modalAttractionHours">9:00 AM - 5:00 PM</span></p>
+            </div>
+            <div class="col-md-6">
+              <p><i class="fas fa-map-marker-alt me-2" aria-hidden="true"></i> <strong>Location:</strong> <span id="modalAttractionLocation">Brighton</span></p>
+              <p><i class="fas fa-bus me-2" aria-hidden="true"></i> <strong>Transport:</strong> <span id="modalAttractionTransport">Accessible by buses 5, 7, 12</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <a id="viewOnMapBtn" href="map.html" class="btn btn-primary">View on Map</a>
+        <button id="addToFavoritesBtn" class="btn btn-outline-success" aria-label="Add to favorites">
+          <i class="far fa-heart me-2" aria-hidden="true"></i>Add to Favorites
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- jQuery -->
+<script src="js/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/signIn.js"></script>
+<script src="js/script.js"></script>
+<script src="js/attractions.js"></script>
+</body>
+</html>

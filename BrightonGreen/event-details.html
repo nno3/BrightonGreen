@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sign up for the Brighton Beach Cleanup event">
+  <title>Event Details - GreenBrighton Beach Cleanup</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  
+  <!-- Leaflet Map CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/blogs.css">
+  
+  <!-- Map CSS -->
+  <link rel="stylesheet" href="css/map.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" role="navigation" aria-label="Main navigation">
+    <div class="container-fluid px-0">
+      <!-- Logo -->
+      <a class="navbar-brand d-flex align-items-center" href="#" aria-label="GreenBrighton Home">
+        <img src="images/Logo.png" alt="GreenBrighton Logo" width="70" height="70" class="d-inline-block logo-img">
+        <span class="ms-2">GreenBrighton</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="attractions.html">Attractions</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="blogs.html">Blogs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="calendar.html" aria-label="View events calendar">Calendar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="map.html" aria-label="View interactive map">Map</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="our-impact.html" aria-label="View our environmental impact">Our Impact</a>
+          </li>
+          <li class="nav-item" id="auth-menu-item">
+            <a class="nav-link" id="auth-link" href="signUp.html" >
+              <i class="fas fa-user me-1" aria-hidden="true"></i><span id="auth-text">Sign In</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Back Button -->
+  <div class="container mt-5 pt-5">
+    <a href="cleanup-events.html" class="back-button">
+      <i class="fas fa-arrow-left"></i> Back to Events
+    </a>
+  </div>
+
+  <!-- Event Details Section -->
+  <section class="event-details-section" style="padding-top: 30px;" aria-labelledby="event-details-heading">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <h1 id="event-details-heading">SAS Brighton and Hove Beach Clean Up</h1>
+          <div class="event-description">
+            <p class="lead">We are ocean activists!</p>
+            <p>Surfers Against Sewage Million Mile beach clean organised by regional rep, Daisy. Small group before heading off and aiming for a bag weigh! Everyone welcome! Group sizes vary from two to twenty five. Perfect for families.</p>
+            
+            <div class="event-info">
+              <p><i class="far fa-calendar me-2"></i>March 16, 2024</p>
+              <p><i class="far fa-clock me-2"></i>10:00 AM - 12:00 PM</p>
+              <p><i class="fas fa-map-marker-alt me-2"></i>Brighton Beach (Near Palace Pier)</p>
+              <p><i class="fas fa-users me-2"></i>2-25 participants</p>
+            </div>
+          </div>
+
+          <!-- Interactive Map -->
+          <div class="event-map-container">
+            <h2>Event Location</h2>
+            <div id="event-map" style="height: 400px;"></div>
+          </div>
+        </div>
+
+        <!-- Signup Form -->
+        <div class="col-lg-4">
+          <div class="signup-form-container">
+            <h2>Sign-Up Form</h2>
+            <form id="event-signup-form">
+              <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" required>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" required>
+              </div>
+              <div class="mb-3">
+                <label for="phone" class="form-label">Phone Number (optional)</label>
+                <input type="tel" class="form-control" id="phone">
+              </div>
+              <div class="mb-3">
+                <label for="tshirt-size" class="form-label">T-shirt Size (optional)</label>
+                <select class="form-select" id="tshirt-size">
+                  <option value="">Select size...</option>
+                  <option value="S">S</option>
+                  <option value="M">M</option>
+                  <option value="L">L</option>
+                  <option value="XL">XL</option>
+                </select>
+                <small class="form-text text-muted">All volunteers will receive a free t-shirt to wear during the cleanup.</small>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h3 class="h5">Contact Us</h3>
+          <address>
+            <p>Email: <a href="mailto:info@greenbrighton.com">info@greenbrighton.com</a></p>
+            <p>Phone: <a href="tel:+441234567890">+44 123 456 7890</a></p>
+          </address>
+        </div>
+        <div class="col-md-4">
+          <h3 class="h5">Quick Links</h3>
+          <ul class="list-unstyled">
+            <li><a href="#" aria-label="Read our privacy policy">Privacy Policy</a></li>
+            <li><a href="#" aria-label="Read our terms of service">Terms of Service</a></li>
+            <li><a href="#" aria-label="View sitemap">Sitemap</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h3 class="h5">Follow Us</h3>
+          <div class="social-links" aria-label="Social media links">
+            <a href="#" aria-label="Visit our Facebook page" class="social-link"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+            <a href="#" aria-label="Visit our Twitter page" class="social-link"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+            <a href="#" aria-label="Visit our Instagram page" class="social-link"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col text-center">
+          <p>&copy; 2024 GreenBrighton. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- Scripts -->
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/signUp.js"></script>
+  <script src="js/event-details.js"></script>
+</body>
+</html> 

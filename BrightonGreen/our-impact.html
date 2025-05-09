@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Discover the impact of Brighton Beach Cleanups and join our volunteering community">
+  <title>Our Impact - GreenBrighton Beach Cleanups</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  
+  <!-- AOS (Animate On Scroll) CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/blogs.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" role="navigation" aria-label="Main navigation">
+    <div class="container-fluid px-0">
+      <!-- Logo -->
+      <a class="navbar-brand d-flex align-items-center" href="#" aria-label="GreenBrighton Home">
+        <img src="images/Logo.png" alt="GreenBrighton Logo featuring a green leaf design" width="70" height="70" class="d-inline-block logo-img">
+        <span class="ms-2">GreenBrighton</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="attractions.html">Attractions</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="blogs.html">Blogs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="calendar.html" aria-label="View events calendar">Calendar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="map.html" aria-label="View interactive map">Map</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="our-impact.html" aria-label="View our environmental impact">Our Impact</a>
+          </li>
+          <li class="nav-item" id="auth-menu-item">
+            <a class="nav-link" id="auth-link" href="signUp.html" >
+              <i class="fas fa-user me-1" aria-hidden="true"></i><span id="auth-text">Sign In</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Back Button -->
+  <div class="container mt-5 pt-5">
+    <a href="index.html" class="back-button">
+      <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+  </div>
+
+  <!-- Impact Hero Section -->
+  <header class="impact-hero" role="banner">
+    <div class="impact-hero-overlay"></div>
+    <div class="container">
+      <div class="row align-items-center min-vh-60">
+        <div class="col-lg-8 mx-auto text-center">
+          <h1>Making Waves of Change</h1>
+          <p class="lead mb-4">Together, we're creating a cleaner, healthier Brighton coastline</p>
+          <div>
+            <a href="#impact-stats" class="btn btn-primary btn-lg">
+              <i class="fas fa-chart-line me-2"></i>See Our Impact
+            </a>
+            <a href="cleanup-events.html" class="btn btn-outline-light btn-lg ms-2">
+              <i class="fas fa-hands-helping me-2"></i>Join Us
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wave-bottom">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#ffffff" fill-opacity="1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,202.7C672,203,768,181,864,176C960,171,1056,181,1152,176C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
+    </div>
+  </header>
+
+  <!-- Main content wrapper for text-to-speech -->
+  <main id="main-content">
+    <!-- Impact Statistics -->
+    <section id="impact-stats" class="impact-stats py-5" aria-labelledby="impact-stats-heading">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-lg-8 mx-auto text-center">
+            <h2 id="impact-stats-heading" class="section-title" data-aos="fade-up">Our Impact in Numbers</h2>
+            <p class="section-description" data-aos="fade-up" data-aos-delay="100">Every beach cleanup makes a difference. Here's what we've achieved together so far.</p>
+          </div>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-4" data-aos="zoom-in" data-aos-delay="0">
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-users"></i>
+              </div>
+              <h3 class="counter">5000</h3>
+              <h4>Volunteers Engaged</h4>
+              <p>Community members who joined our mission</p>
+            </div>
+          </div>
+          <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-trash"></i>
+              </div>
+              <h3 class="counter">15</h3>
+              <h4>Tons of Waste Collected</h4>
+              <p>Removed from Brighton's beaches and coastline</p>
+            </div>
+          </div>
+          <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-calendar-check"></i>
+              </div>
+              <h3 class="counter">200</h3>
+              <h4>Events Completed</h4>
+              <p>Successful beach cleanup events since we began</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Environmental Impact -->
+    <section class="environmental-impact py-5 bg-light">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-lg-8 mx-auto text-center">
+            <h2 class="section-title" data-aos="fade-up">Environmental Impact</h2>
+            <p class="section-description" data-aos="fade-up" data-aos-delay="100">Our efforts have made a significant difference to Brighton's coastal ecosystem</p>
+          </div>
+        </div>
+        <div class="row align-items-center">
+          <div class="col-md-6" data-aos="fade-right">
+            <img src="images/Brighton-Beach-Cleanup3.jpeg" alt="Clean Brighton beach after a successful cleanup event showing pristine sands and clear shoreline" class="img-fluid rounded-lg shadow">
+          </div>
+          <div class="col-md-6" data-aos="fade-left">
+            <div class="impact-fact-cards">
+              <div class="impact-fact-card">
+                <div class="fact-icon">
+                  <i class="fas fa-fish"></i>
+                </div>
+                <div class="fact-content">
+                  <h4>Marine Life Protection</h4>
+                  <p>Removed harmful plastics that threaten marine species along Brighton's coast</p>
+                </div>
+              </div>
+              <div class="impact-fact-card">
+                <div class="fact-icon">
+                  <i class="fas fa-water"></i>
+                </div>
+                <div class="fact-content">
+                  <h4>Water Quality</h4>
+                  <p>Improved Brighton's water quality by removing pollutants before they enter the sea</p>
+                </div>
+              </div>
+              <div class="impact-fact-card">
+                <div class="fact-icon">
+                  <i class="fas fa-recycle"></i>
+                </div>
+                <div class="fact-content">
+                  <h4>Recycling Initiatives</h4>
+                  <p>Properly sorted and recycled over 60% of collected waste</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Impact Timeline -->
+    <section class="impact-timeline py-5">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-lg-8 mx-auto text-center">
+            <h2 class="section-title" data-aos="fade-up">Our Journey</h2>
+            <p class="section-description" data-aos="fade-up" data-aos-delay="100">How our cleanup efforts have grown over the years</p>
+          </div>
+        </div>
+        
+        <div class="row">
+          <!-- 2024 -->
+          <div class="col-md-3" data-aos="fade-up">
+            <div class="history-card">
+              <img src="images/Brighton-Beach-Cleanup2.jpeg" alt="2024 Beach Cleanup Event with volunteers using innovative waste sorting bins and recycling stations" class="img-fluid">
+              <div class="history-content">
+                <div class="timeline-year">2024</div>
+                <h3>Innovation & Expansion</h3>
+                <ul class="timeline-stats">
+                  <li><i class="fas fa-users"></i> <strong>1,800 Volunteers</strong></li>
+                  <li><i class="fas fa-trash"></i> <strong>3 Tons Collected</strong></li>
+                  <li><i class="fas fa-calendar-check"></i> <strong>25 Events</strong></li>
+                </ul>
+                <p>Expanding our impact with innovative waste sorting and recycling initiatives.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 2023 -->
+          <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+            <div class="history-card">
+              <img src="images/Brighton-Beach-Cleanup1.jpeg" alt="2023 Beach Cleanup Event showing a large group of volunteers with collection bags full of plastic waste along Brighton shoreline" class="img-fluid">
+              <div class="history-content">
+                <div class="timeline-year">2023</div>
+                <h3>Record Breaking Year</h3>
+                <ul class="timeline-stats">
+                  <li><i class="fas fa-users"></i> <strong>1,500 Volunteers</strong></li>
+                  <li><i class="fas fa-trash"></i> <strong>5 Tons Collected</strong></li>
+                  <li><i class="fas fa-calendar-check"></i> <strong>60 Events</strong></li>
+                </ul>
+                <p>Record-breaking participation with focus on plastic waste reduction.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 2022 -->
+          <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+            <div class="history-card">
+              <img src="images/Brighton-Beach-Cleanup4.jpeg" alt="2022 Beach Cleanup Event featuring educational workshops and community members of all ages participating in beach cleaning activities" class="img-fluid">
+              <div class="history-content">
+                <div class="timeline-year">2022</div>
+                <h3>Community Growth</h3>
+                <ul class="timeline-stats">
+                  <li><i class="fas fa-users"></i> <strong>1,200 Volunteers</strong></li>
+                  <li><i class="fas fa-trash"></i> <strong>4 Tons Collected</strong></li>
+                  <li><i class="fas fa-calendar-check"></i> <strong>45 Events</strong></li>
+                </ul>
+                <p>Expanded educational programs and community engagement.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 2021 -->
+          <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+            <div class="history-card">
+              <img src="images/Brighton-Beach-Cleanup5.jpeg" alt="2021 Beach Cleanup Event" class="img-fluid">
+              <div class="history-content">
+                <div class="timeline-year">2021</div>
+                <h3>Getting Started</h3>
+                <ul class="timeline-stats">
+                  <li><i class="fas fa-users"></i> <strong>800 Volunteers</strong></li>
+                  <li><i class="fas fa-trash"></i> <strong>3 Tons Collected</strong></li>
+                  <li><i class="fas fa-calendar-check"></i> <strong>30 Events </strong></li>
+                </ul>
+                <p>The beginning of our organized beach cleanup efforts in Brighton.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials py-5 bg-light">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-lg-8 mx-auto text-center">
+            <h2 class="section-title" data-aos="fade-up">Volunteer Voices</h2>
+            <p class="section-description" data-aos="fade-up" data-aos-delay="100">What our community says about our beach cleanup efforts</p>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+            <div class="testimonial-card">
+              <div class="testimonial-avatar">
+                <img src="images/SarahJohnson.jpeg" alt="Sarah Johnson">
+              </div>
+              <div class="testimonial-content">
+                <p>"Participating in GreenBrighton's beach cleanups has been incredibly rewarding. It's amazing to see the immediate impact we have on our beautiful coastline."</p>
+                <div class="testimonial-name">Sarah Johnson</div>
+                <div class="testimonial-role">Regular Volunteer</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="testimonial-card">
+              <div class="testimonial-avatar">
+                <img src="images/MarkThompson.jpg" alt="Mark Thompson">
+              </div>
+              <div class="testimonial-content">
+                <p>"As a local business owner, partnering with GreenBrighton has helped us connect with the community while making a real difference to our environment."</p>
+                <div class="testimonial-name">Mark Thompson</div>
+                <div class="testimonial-role">Local Business Owner</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="testimonial-card">
+              <div class="testimonial-avatar">
+                <img src="images/Emma-Clarke.jpg" alt="Emma Clarke">
+              </div>
+              <div class="testimonial-content">
+                <p>"I bring my children to the beach cleanups as a way to teach them about environmental responsibility. The events are well-organized and fun for the whole family."</p>
+                <div class="testimonial-name">Emma Clarke</div>
+                <div class="testimonial-role">Parent & Volunteer</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Volunteer CTA -->
+    <section class="volunteer-cta py-5" aria-labelledby="volunteer-heading">
+      <div class="container">
+        <div class="cta-card" data-aos="zoom-in">
+          <div class="row align-items-center">
+            <div class="col-lg-6">
+              <h2 id="volunteer-heading">Ready to Make a Difference?</h2>
+              <p class="lead mb-0">Join our next beach cleanup event and be part of the change</p>
+            </div>
+            <div class="col-lg-6 text-lg-end mt-4 mt-lg-0">
+              <div class="cta-buttons">
+                <a href="cleanup-events.html" class="btn btn-primary btn-lg cta-button">
+                  <i class="fas fa-hands-helping me-2"></i>Volunteer Now
+                </a>
+                <a href="donation.html" class="btn btn-outline-primary btn-lg cta-button">
+                  <i class="fas fa-heart me-2"></i>Donate
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h3 class="h5">Contact Us</h3>
+          <address>
+            <p>Email: <a href="mailto:info@greenbrighton.com">info@greenbrighton.com</a></p>
+            <p>Phone: <a href="tel:+441234567890">+44 123 456 7890</a></p>
+          </address>
+        </div>
+        <div class="col-md-4">
+          <h3 class="h5">Quick Links</h3>
+          <ul class="list-unstyled">
+            <li><a href="#" aria-label="Read our privacy policy">Privacy Policy</a></li>
+            <li><a href="#" aria-label="Read our terms of service">Terms of Service</a></li>
+            <li><a href="#" aria-label="View sitemap">Sitemap</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h3 class="h5">Follow Us</h3>
+          <div class="social-links" aria-label="Social media links">
+            <a href="#" aria-label="Visit our Facebook page" class="social-link"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+            <a href="#" aria-label="Visit our Twitter page" class="social-link"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+            <a href="#" aria-label="Visit our Instagram page" class="social-link"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col text-center">
+          <p>&copy; 2024 GreenBrighton. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- jQuery -->
+  <script src="js/jquery-3.6.0.min.js"></script>
+
+  <!-- Bootstrap JS -->
+  <script src="js/bootstrap.bundle.min.js"></script>
+  
+  <!-- AOS (Animate On Scroll) JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
+  <!-- Counter JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
+  
+  <!-- Custom JS -->
+  <script src="js/script.js"></script>
+  <script src="js/signUp.js"></script>
+  
+  <script>
+    // Initialize AOS animations
+    AOS.init({
+      duration: 800,
+      once: true
+    });
+    
+    // Initialize counter animation
+    $('.counter').counterUp({
+      delay: 10,
+      time: 1000
+    });
+    
+    // Fix for Chrome anchor buttons - ensure smooth scrolling works across browsers
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get the "See Our Impact" button and add a click handler
+      const impactButton = document.querySelector('a[href="#impact-stats"]');
+      if (impactButton) {
+        impactButton.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetSection = document.getElementById('impact-stats');
+          if (targetSection) {
+            targetSection.scrollIntoView({ 
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      }
+      
+      // Handle the "Join Us" button click to ensure it properly navigates
+      const joinButton = document.querySelector('a[href="cleanup-events.html"]');
+      if (joinButton) {
+        joinButton.addEventListener('click', function(e) {
+          // Do not prevent default, but ensure the browser handles it correctly
+          window.location.href = "cleanup-events.html";
+        });
+      }
+    });
+  </script>
+</body>
+</html> 

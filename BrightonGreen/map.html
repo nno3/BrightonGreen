@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Interactive map of eco-friendly attractions in Brighton">
+  <title>Interactive Map - GreenBrighton</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  
+  <!-- Leaflet Map CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  
+  <!-- Map Specific CSS -->
+  <link rel="stylesheet" href="css/map.css">
+</head>
+<body>
+  <!-- Toast container for notifications -->
+  <div id="toast-container" class="position-fixed top-0 end-0 p-3" style="z-index: 1080;"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" role="navigation" aria-label="Main navigation">
+    <div class="container-fluid px-0">
+      <!-- Logo -->
+      <a class="navbar-brand d-flex align-items-center" href="index.html" aria-label="GreenBrighton Home">
+        <img src="images/Logo.png" alt="GreenBrighton Logo" width="70" height="70" class="d-inline-block logo-img">
+        <span class="ms-2">GreenBrighton</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="attractions.html">Attractions</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="blogs.html">Blogs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="calendar.html">Calendar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="map.html">Map</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="our-impact.html">Our Impact</a>
+          </li>
+          <li class="nav-item" id="auth-menu-item">
+            <a class="nav-link" id="auth-link" href="signUp.html">
+              <i class="fas fa-user me-1" aria-hidden="true"></i><span id="auth-text">Sign In</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Map Section -->
+  <section class="map-page-section" style="padding-top: 100px;">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h1 class="text-center mb-4">Explore Green Brighton</h1>
+          <div class="map-page-container">
+            <div class="map-filters mb-4">
+              <div class="row align-items-center">
+                <div class="col-md-9">
+                  <div class="d-flex align-items-center">
+                    <h4 class="me-3 mb-0">Filter:</h4>
+                    <div class="filter-buttons">
+                      <button type="button" class="btn btn-sm btn-outline-success me-2 mb-2" data-filter="beach-cleanup">
+                        <i class="fas fa-water me-1"></i> Beach Cleanups
+                      </button>
+                      <button type="button" class="btn btn-sm btn-outline-success me-2 mb-2" data-filter="park">
+                        <i class="fas fa-tree me-1"></i> Parks
+                      </button>
+                      <button type="button" class="btn btn-sm btn-outline-success me-2 mb-2" data-filter="garden">
+                        <i class="fas fa-leaf me-1"></i> Gardens
+                      </button>
+                      <button type="button" class="btn btn-sm btn-outline-success me-2 mb-2" data-filter="attraction">
+                        <i class="fas fa-star me-1"></i> Attractions
+                      </button>
+                      <button type="button" class="btn btn-sm btn-outline-primary me-2 mb-2" data-filter="all">
+                        <i class="fas fa-globe me-1"></i> Show All
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <input type="text" class="form-control form-control-sm" placeholder="Search locations..." id="map-search">
+                    <button class="btn btn-sm btn-primary" type="button" id="map-search-btn">
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="interactive-map" style="height: 450px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);"></div>
+            <div class="map-legend mt-3">
+              <div class="d-flex flex-wrap">
+                <div class="legend-item me-3 mb-2">
+                  <span class="legend-color" style="background-color: #2196F3;"></span>
+                  <span class="legend-text">Beach Cleanup Locations</span>
+                </div>
+                <div class="legend-item me-3 mb-2">
+                  <span class="legend-color" style="background-color: #4CAF50;"></span>
+                  <span class="legend-text">Parks</span>
+                </div>
+                <div class="legend-item me-3 mb-2">
+                  <span class="legend-color" style="background-color: #FF9800;"></span>
+                  <span class="legend-text">Gardens</span>
+                </div>
+
+                <div class="legend-item me-3 mb-2">
+                  <span class="legend-color" style="background-color: #795548;"></span>
+                  <span class="legend-text">Attractions</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Location Details Modal -->
+  <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="locationModalLabel">Location Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="location-detail-header mb-3">
+            <h3 id="locationTitle" class="mb-0"></h3>
+            <div class="location-type-badge" id="locationType"></div>
+          </div>
+          
+          <div class="location-image mb-3" id="locationImageContainer">
+            <img src="" alt="Location image" id="locationImage" class="img-fluid rounded">
+          </div>
+          
+          <div class="location-details-container">
+            <div class="location-detail-item" id="locationAddressContainer">
+              <div class="location-detail-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div class="location-detail-content">
+                <span class="location-detail-label">Address</span>
+                <span id="locationAddress" class="location-detail-value"></span>
+              </div>
+            </div>
+            
+            <div class="location-detail-item" id="locationDescriptionContainer">
+              <div class="location-detail-icon">
+                <i class="fas fa-align-left"></i>
+              </div>
+              <div class="location-detail-content">
+                <span class="location-detail-label">Description</span>
+                <p id="locationDescription" class="location-detail-value"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <a href="#" id="getDirections" class="btn btn-success px-4 btn-icon" target="_blank">
+            <i class="fas fa-directions me-2"></i>Get Directions
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h3 class="h5">Contact Us</h3>
+          <address>
+            <p>Email: <a href="mailto:info@greenbrighton.com">info@greenbrighton.com</a></p>
+            <p>Phone: <a href="tel:+441234567890">+44 123 456 7890</a></p>
+          </address>
+        </div>
+        <div class="col-md-4">
+          <h3 class="h5">Quick Links</h3>
+          <ul class="list-unstyled">
+            <li><a href="#" aria-label="Read our privacy policy">Privacy Policy</a></li>
+            <li><a href="#" aria-label="Read our terms of service">Terms of Service</a></li>
+            <li><a href="#" aria-label="View sitemap">Sitemap</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h3 class="h5">Follow Us</h3>
+          <div class="social-links" aria-label="Social media links">
+            <a href="#" aria-label="Visit our Facebook page" class="social-link"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+            <a href="#" aria-label="Visit our Twitter page" class="social-link"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+            <a href="#" aria-label="Visit our Instagram page" class="social-link"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col text-center">
+          <p>&copy; 2024 GreenBrighton. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/signIn.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html> 
