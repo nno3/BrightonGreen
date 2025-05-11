@@ -1,0 +1,268 @@
+/* Component Styles */
+
+/* Attractions Cards */
+.attraction-card {
+  flex: 0 0 auto;
+  width: 300px;
+  margin-right: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background-color: white;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  height: 400px; /* Reduced from 420px */
+}
+
+.attraction-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.15);
+  border-color: var(--sage-green-light);
+}
+
+.attraction-img {
+  height: 180px;
+  overflow: hidden;
+  position: relative;
+}
+
+.attraction-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.attraction-card:hover .attraction-img img {
+  transform: scale(1.05);
+}
+
+/* Badge styling */
+.attraction-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(192, 181, 150, 0.9);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+
+.attraction-content {
+  padding: 1.25rem 1.5rem; /* Reduced top/bottom padding */
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  position: relative;
+}
+
+.attraction-content h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem; /* Reduced from 0.75rem */
+  color: var(--sage-green-dark);
+}
+
+.attraction-content p {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1rem;
+  text-align: left;
+  flex-grow: 1;
+}
+
+/* Scrollable attraction containers */
+.scrollable-attractions {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 2.5rem; /* Reduced from 3rem */
+  padding-right: 16px;
+  padding-left: 16px;
+  padding-top: 1.5rem; /* Reduced from 2rem */
+}
+
+.attractions-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding: 1rem 2rem 2rem; /* Reduced padding all around */
+  margin: 0 -1rem;
+  scrollbar-width: none; /* Firefox */
+  /* Add padding on sides for arrow space */
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.attractions-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.attractions-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.attractions-container::-webkit-scrollbar-thumb {
+  background: var(--sage-green-light);
+  border-radius: 10px;
+}
+
+.attractions-container::-webkit-scrollbar-thumb:hover {
+  background: var(--sage-green-primary);
+}
+
+/* Scroll indicators */
+.scroll-indicator {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background-color: var(--sage-green-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.scroll-indicator:hover {
+  opacity: 1;
+  background-color: var(--sage-green-dark);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.left-indicator {
+  left: 5px;
+}
+
+.right-indicator {
+  right: 5px;
+}
+
+/* Attractions divider styling */
+.attractions-divider {
+  position: relative;
+  text-align: center;
+  margin: 15px 0 20px; /* Reduced from 25px 0 */
+}
+
+.attractions-divider::before {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 1px;
+  background: var(--sage-green-primary);
+  position: absolute;
+  top: 50%;
+  left: calc(50% - 110px);
+}
+
+.attractions-divider::after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 1px;
+  background: var(--sage-green-primary);
+  position: absolute;
+  top: 50%;
+  right: calc(50% - 110px);
+}
+
+.attractions-divider span {
+  display: inline-block;
+  padding: 0 10px;
+  background: #f9f9f9;
+  position: relative;
+  z-index: 1;
+  font-size: 1.5rem;
+  color: var(--sage-green-primary);
+}
+
+/* Blog image carousel controls */
+.blog-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.blog-carousel-controls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.blog-image:hover .blog-carousel-controls {
+  opacity: 1;
+}
+
+.blog-carousel-btn {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0 10px;
+  transition: all 0.3s ease;
+}
+
+.blog-carousel-btn:hover {
+  background-color: var(--sage-green-primary);
+  transform: scale(1.1);
+}
+
+/* Featured images */
+.featured-image {
+  max-height: 300px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments for components */
+@media (max-width: 576px) {
+  .attraction-card {
+    width: 250px;
+  }
+}
+
+/* Styling for attraction cards in grid view for larger screens */
+@media (min-width: 992px) {
+  .attractions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 30px;
+  }
+  
+  .attractions-grid .attraction-card {
+    width: 100%;
+    margin-right: 0;
+  }
+} 

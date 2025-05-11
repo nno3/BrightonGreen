@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Support GreenBrighton's beach cleanup initiatives">
+  <title>Donate - GreenBrighton</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  
+  <!-- Common CSS for consistent components across pages -->
+  <link rel="stylesheet" href="css/common.css">
+  
+  <!-- Text-to-speech button styling for consistent look across all pages -->
+  <link rel="stylesheet" href="css/tts-button.css">
+  <style>
+    .donation-form-container {
+      max-width: 1150px;
+      margin: 0 auto;
+    }
+    .error-message {
+      color: #dc3545;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+      display: none;
+    }
+    .form-control.is-invalid ~ .error-message {
+      display: block;
+    }
+    .donation-section {
+      padding-top: 120px;
+      min-height: 100vh;
+      background-color: var(--sage-green-bg);
+    }
+  </style>
+  <!-- Navbar buttons styling -->
+  <link rel="stylesheet" href="css/navbar-buttons.css">
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" role="navigation" aria-label="Main navigation">
+  <div class="container-fluid px-0">
+    <!-- Logo -->
+    <a class="navbar-brand d-flex align-items-center" href="index.html" aria-label="GreenBrighton Home">
+      <img src="images/Logo.png" alt="GreenBrighton Logo" width="70" height="70" class="d-inline-block logo-img">
+      <span class="ms-2">GreenBrighton</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="attractions.html">Attractions</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="blogs.html">Blogs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="calendar.html">Calendar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="map.html" aria-label="View interactive map">Map</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="itinerary-planner.html" aria-label="Plan your itinerary">Itinerary Planner</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="our-impact.html">Our Impact</a>
+        </li>
+        <li class="nav-item" id="auth-menu-item">
+          <a class="nav-link" id="auth-link" href="signUp.html">
+            <i class="fas fa-user me-1" aria-hidden="true"></i><span id="auth-text">Sign In</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+  <!-- Donation Section -->
+  <section class="donation-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6 donation-form-container">
+          <div class="card shadow-lg">
+            <div class="card-body p-4">
+              <h1 class="text-center mb-4">Support Our Mission</h1>
+              <p class="text-center mb-4">
+                Your donation helps us organize more beach cleanups, provide equipment to volunteers,
+                and continue our mission to keep Brighton's beaches clean and safe for everyone.
+              </p>
+
+              <form id="donation-form" class="needs-validation" novalidate>
+                <!-- Donation Amount -->
+                <div class="mb-3">
+                  <label for="amount" class="form-label">Donation Amount (£)</label>
+                  <div class="input-group">
+                    <span class="input-group-text">£</span>
+                    <input type="number" class="form-control" id="amount" min="1" step="1" placeholder="Enter amount" required>
+                  </div>
+                  <div class="error-message" id="amount-error">Please enter a valid donation amount (minimum £1)</div>
+                </div>
+
+                <!-- Quick Amount Buttons -->
+                <div class="mb-3 d-flex justify-content-between">
+                  <button type="button" class="btn btn-outline-primary quick-amount" data-amount="5">£5</button>
+                  <button type="button" class="btn btn-outline-primary quick-amount" data-amount="10">£10</button>
+                  <button type="button" class="btn btn-outline-primary quick-amount" data-amount="20">£20</button>
+                  <button type="button" class="btn btn-outline-primary quick-amount" data-amount="50">£50</button>
+                </div>
+
+                <!-- Card Details -->
+                <div class="mb-3">
+                  <label for="card-name" class="form-label">Name on Card</label>
+                  <input type="text" class="form-control" id="card-name" placeholder="Enter name as it appears on your card" required>
+                  <div class="error-message" id="card-name-error">Please enter the name as it appears on your card</div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="card-number" class="form-label">Card Number</label>
+                  <input type="text" class="form-control" id="card-number"
+                         pattern="[0-9]{16}" maxlength="16" placeholder="Enter 16-digit card number" required>
+                  <div class="error-message" id="card-number-error">Please enter a valid 16-digit card number</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="expiry" class="form-label">Expiry Date</label>
+                    <input type="text" class="form-control" id="expiry"
+                           placeholder="MM/YY" pattern="(0[1-9]|1[0-2])\/([0-9]{2})" required>
+                    <div class="error-message" id="expiry-error">Please enter a valid expiry date in MM/YY format</div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="cvv" class="form-label">CVV</label>
+                    <input type="text" class="form-control" id="cvv"
+                           pattern="[0-9]{3,4}" maxlength="4" placeholder="3 or 4 digits" required>
+                    <div class="error-message" id="cvv-error">Please enter a valid 3 or 4 digit security code</div>
+                  </div>
+                </div>
+
+                <button type="submit" id="donate-button" class="btn btn-primary w-100 mt-3">
+                  <i class="fas fa-heart me-2"></i>Donate Now
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Donation Benefits -->
+          <div class="card mt-4 shadow-lg">
+            <div class="card-body p-4">
+              <h3 class="h4 mb-3">Your Impact</h3>
+              <ul class="list-unstyled">
+                <li class="mb-2">
+                  <i class="fas fa-check-circle text-success me-2"></i>
+                  Help provide cleaning equipment for volunteers
+                </li>
+                <li class="mb-2">
+                  <i class="fas fa-check-circle text-success me-2"></i>
+                  Support educational programs about marine conservation
+                </li>
+                <li class="mb-2">
+                  <i class="fas fa-check-circle text-success me-2"></i>
+                  Enable more frequent beach cleanup events
+                </li>
+                <li class="mb-2">
+                  <i class="fas fa-check-circle text-success me-2"></i>
+                  Contribute to a cleaner, safer environment
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Success Modal -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="successModalLabel">Thank You for Your Donation!</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <i class="fas fa-heart text-danger mb-3" style="font-size: 3rem;"></i>
+          <p>Your generous donation will help us continue our mission to keep Brighton's beaches clean and beautiful.</p>
+        </div>
+        <div class="modal-footer">
+          <a href="our-impact.html" class="btn btn-primary">View Impact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h3 class="h5">Contact Us</h3>
+          <address>
+            <p>Email: <a href="mailto:info@greenbrighton.com">info@greenbrighton.com</a></p>
+            <p>Phone: <a href="tel:+441234567890">+44 123 456 7890</a></p>
+          </address>
+        </div>
+        <div class="col-md-4">
+          <h3 class="h5">Quick Links</h3>
+          <ul class="list-unstyled">
+            <li><a href="#" aria-label="Read our privacy policy">Privacy Policy</a></li>
+            <li><a href="#" aria-label="Read our terms of service">Terms of Service</a></li>
+            <li><a href="#" aria-label="View sitemap">Sitemap</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h3 class="h5">Follow Us</h3>
+          <div class="social-links" aria-label="Social media links">
+            <a href="#" aria-label="Visit our Facebook page" class="social-link"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+            <a href="#" aria-label="Visit our Twitter page" class="social-link"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+            <a href="#" aria-label="Visit our Instagram page" class="social-link"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col text-center">
+          <p>&copy; 2024 GreenBrighton. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- Scripts -->
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/donation.js"></script>
+  <script src="js/signUp.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html> 

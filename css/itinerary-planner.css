@@ -1,0 +1,1084 @@
+/* Itinerary Planner Specific Styles */
+
+.itinerary-section {
+  background-color: var(--sage-green-bg);
+  min-height: calc(100vh - 100px);
+  padding-bottom: 2rem;
+  padding-top: 100px;
+}
+
+/* Results page specific adjustments */
+.itinerary-section.pt-0 {
+  padding-top: 20px;
+}
+
+/* Step Indicator */
+.steps-container {
+  position: relative;
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+.step-progress {
+  height: 4px;
+  background-color: #e2e8f0;
+  position: absolute;
+  top: 30px;
+  left: 40px;
+  right: 40px;
+  z-index: 1;
+}
+
+.step-progress-bar {
+  height: 100%;
+  background-color: var(--sage-green-primary);
+  transition: width 0.3s ease;
+}
+
+.steps {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80px;
+}
+
+.step-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #718096;
+  font-size: 1.25rem;
+  border: 2px solid #e2e8f0;
+  transition: all 0.3s ease;
+  margin-bottom: 0.5rem;
+}
+
+.step.active .step-icon {
+  background-color: var(--sage-green-primary);
+  color: white;
+  border-color: var(--sage-green-primary);
+}
+
+.step.completed .step-icon {
+  background-color: white;
+  color: var(--sage-green-primary);
+  border-color: var(--sage-green-primary);
+}
+
+.step-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #718096;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.step.active .step-label {
+  color: var(--sage-green-dark);
+  font-weight: 600;
+}
+
+/* Preference Sections */
+.preference-section {
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 1.5rem;
+}
+
+.preference-section:last-child {
+  border-bottom: none;
+}
+
+.preference-section h3 {
+  color: var(--sage-green-dark);
+  font-weight: 600;
+}
+
+/* Card Styling */
+.planner-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  height: 100%;
+}
+
+.planner-card-header {
+  background-color: var(--sage-green-light);
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.planner-card-header h2 {
+  color: var(--sage-green-dark);
+  margin: 0;
+  font-weight: 600;
+}
+
+.planner-card-body {
+  padding: 1.5rem;
+}
+
+/* Form Styling */
+#itinerary-form label {
+  font-weight: 500;
+  color: var(--sage-green-dark);
+}
+
+#itinerary-form .form-check-label {
+  font-weight: normal;
+}
+
+/* Itinerary Summary */
+.itinerary-summary {
+  margin-bottom: 1.5rem;
+}
+
+.summary-item {
+  display: flex;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.summary-item:last-child {
+  border-bottom: none;
+}
+
+.summary-label {
+  font-weight: 600;
+  color: var(--sage-green-dark);
+  width: 100px;
+  flex-shrink: 0;
+}
+
+.summary-value {
+  flex: 1;
+}
+
+.date-display {
+  padding: 0.25rem 0.75rem;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Time Section Styling */
+.time-section {
+  margin-bottom: 2rem;
+  border-left: 3px solid var(--sage-green-primary);
+  padding-left: 1.25rem;
+}
+
+.time-heading {
+  font-size: 1.25rem;
+  color: var(--sage-green-dark);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+/* Activity Cards */
+.activity-card {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
+  border: 1px solid #eaeaea;
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+}
+
+.activity-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.activity-thumbnail {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.activity-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.activity-content {
+  flex: 1;
+}
+
+.activity-title {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: var(--sage-green-dark);
+  font-size: 1rem;
+}
+
+.activity-time {
+  color: #666;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.activity-description {
+  font-size: 0.9rem;
+  color: #505050;
+  margin-bottom: 0.5rem;
+}
+
+.activity-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.activity-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  background-color: var(--sage-green-light);
+  color: var(--sage-green-dark);
+}
+
+.activity-badge.eco {
+  background-color: #e0f2e9;
+  color: #276749;
+}
+
+.activity-badge.vegetarian {
+  background-color: #e3f1fa;
+  color: #2b6cb0;
+}
+
+.activity-badge.vegan {
+  background-color: #d8f3dc;
+  color: #2d6a4f;
+}
+
+.activity-badge.gluten-free {
+  background-color: #feebc8;
+  color: #c05621;
+}
+
+.activity-actions {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.activity-action-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: var(--sage-green-dark);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.activity-action-btn:hover {
+  background-color: var(--sage-green-primary);
+  color: white;
+}
+
+/* Activity Preview Modal */
+#activity-preview-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.activity-image-container {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Placeholder Content */
+.activities-placeholder {
+  text-align: center;
+  padding: 2rem 0;
+  color: #999;
+}
+
+/* Empty slot in activities containers */
+.empty-slot {
+  text-align: center;
+  padding: 1.5rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  color: #999;
+  font-style: italic;
+}
+
+/* Loading animation */
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+
+.spinner-border {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  vertical-align: text-bottom;
+  border: 0.25em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spinner .75s linear infinite;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .planner-card {
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .activity-card {
+    flex-direction: column;
+  }
+  
+  .activity-thumbnail {
+    width: 100%;
+    height: 120px;
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+  
+  .activity-actions {
+    position: relative;
+    top: 0;
+    right: 0;
+    margin-top: 0.75rem;
+    justify-content: flex-end;
+  }
+  
+  .steps-container {
+    max-width: 100%;
+  }
+  
+  .step {
+    width: 60px;
+  }
+  
+  .step-label {
+    font-size: 0.75rem;
+  }
+  
+  .step-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1rem;
+  }
+  
+  .step-progress {
+    left: 25px;
+    right: 25px;
+    top: 25px;
+  }
+}
+
+/* Transitions for smoother UX */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Drag and drop styling */
+.draggable {
+  cursor: grab;
+}
+
+.draggable:active {
+  cursor: grabbing;
+}
+
+.drop-zone {
+  border: 2px dashed #dddddd;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: #fcfcfc;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drop-zone.active {
+  border-color: var(--sage-green-primary);
+  background-color: rgba(168, 151, 112, 0.1);
+}
+
+.drop-zone-text {
+  color: #888;
+  font-style: italic;
+  text-align: center;
+}
+
+/* Empty state styling */
+.empty-itinerary {
+  text-align: center;
+  padding: 2rem;
+  color: #888;
+}
+
+.empty-itinerary i {
+  font-size: 2.5rem;
+  color: #ddd;
+  margin-bottom: 1rem;
+}
+
+/* Attraction Cards in Preview */
+.preview-attractions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.preview-attraction-card {
+  width: calc(33.33% - 0.667rem);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.preview-attraction-card:hover {
+  transform: translateY(-3px);
+}
+
+.preview-attraction-img {
+  height: 140px;
+  overflow: hidden;
+}
+
+.preview-attraction-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.preview-attraction-card:hover .preview-attraction-img img {
+  transform: scale(1.05);
+}
+
+.preview-attraction-content {
+  padding: 0.75rem;
+  background-color: white;
+}
+
+.preview-attraction-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: var(--sage-green-dark);
+}
+
+.preview-attraction-type {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .preview-attraction-card {
+    width: calc(50% - 0.5rem);
+  }
+}
+
+@media (max-width: 576px) {
+  .preview-attraction-card {
+    width: 100%;
+  }
+}
+
+/* Budget slider styling with visible track */
+.budget-slider-container {
+  padding: 15px 15px 10px;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.budget-slider-container:focus-within {
+  border-color: var(--sage-green-primary);
+  box-shadow: 0 0 0 3px rgba(168, 151, 112, 0.25);
+}
+
+/* Add a visible track line */
+.budget-slider-container::before {
+  content: '';
+  position: absolute;
+  left: 15px;
+  right: 15px;
+  top: 27px; /* Position to align with the range input thumb */
+  height: 6px;
+  background: linear-gradient(to right, #e0e0e0, var(--sage-green-primary));
+  border-radius: 3px;
+  z-index: 0;
+  pointer-events: none; /* Allow clicks to pass through to slider */
+}
+
+/* Add tick marks along the track */
+.budget-ticks {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 15px;
+  padding-top: 2px;
+  position: relative;
+  z-index: 1;
+}
+
+.budget-tick {
+  position: relative;
+  width: 1px;
+  height: 5px;
+  background-color: #ccc;
+}
+
+.budget-tick::after {
+  content: attr(data-value);
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  color: #718096;
+  white-space: nowrap;
+}
+
+.budget-tick.tick-major {
+  height: 8px;
+  width: 2px;
+  background-color: #999;
+}
+
+.budget-slider-container .form-range {
+  margin-bottom: 15px;
+  height: 6px;
+  position: relative;
+  z-index: 1;
+  background-color: transparent;
+}
+
+.budget-slider-container .form-range::-webkit-slider-runnable-track {
+  background-color: transparent;
+}
+
+.budget-slider-container .form-range::-moz-range-track {
+  background-color: transparent;
+}
+
+.budget-slider-container .form-range::-webkit-slider-thumb {
+  background-color: var(--sage-green-primary);
+  height: 22px;
+  width: 22px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  position: relative;
+  z-index: 3;
+  margin-top: -8px; /* Adjust vertical positioning */
+}
+
+.budget-slider-container .form-range::-webkit-slider-thumb:hover,
+.budget-slider-container .form-range::-webkit-slider-thumb:focus {
+  transform: scale(1.1);
+  background-color: var(--sage-green-dark);
+}
+
+.budget-slider-container .form-range::-moz-range-thumb {
+  background-color: var(--sage-green-primary);
+  height: 22px;
+  width: 22px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  position: relative;
+  z-index: 3;
+  border: none;
+}
+
+.budget-slider-container .form-range::-moz-range-thumb:hover,
+.budget-slider-container .form-range::-moz-range-thumb:focus {
+  transform: scale(1.1);
+  background-color: var(--sage-green-dark);
+}
+
+.budget-slider-container .form-range::-ms-thumb {
+  background-color: var(--sage-green-primary);
+  height: 22px;
+  width: 22px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  position: relative;
+  z-index: 3;
+  border: none;
+}
+
+.budget-slider-container .form-range::-ms-thumb:hover,
+.budget-slider-container .form-range::-ms-thumb:focus {
+  transform: scale(1.1);
+  background-color: var(--sage-green-dark);
+}
+
+.budget-label {
+  color: #718096;
+  font-size: 0.9rem;
+}
+
+.budget-value {
+  font-weight: 600;
+  color: var(--sage-green-dark);
+  padding: 4px 12px;
+  background-color: rgba(192, 181, 150, 0.2);
+  border-radius: 20px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  text-align: center;
+  min-width: 80px;
+}
+
+/* Activity Options Styling */
+.activity-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.activity-option {
+  position: relative;
+}
+
+.activity-check-input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.activity-check-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 15px;
+  background-color: #f8f9fa;
+  border: 2px solid #eaeaea;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  height: 100%;
+}
+
+.activity-icon {
+  font-size: 1.8rem;
+  color: var(--sage-green-primary);
+  margin-bottom: 12px;
+  transition: all 0.2s ease;
+}
+
+.activity-check-label span {
+  font-weight: 600;
+  color: var(--sage-green-dark);
+  margin-bottom: 5px;
+}
+
+.activity-description {
+  color: #718096;
+  font-size: 0.8rem;
+  display: block;
+}
+
+.activity-check-input:checked + .activity-check-label {
+  border-color: var(--sage-green-primary);
+  background-color: rgba(192, 181, 150, 0.1);
+}
+
+.activity-check-input:focus + .activity-check-label {
+  box-shadow: 0 0 0 3px rgba(168, 151, 112, 0.25);
+}
+
+.activity-check-input:checked + .activity-check-label .activity-icon {
+  color: var(--sage-green-dark);
+  transform: scale(1.1);
+}
+
+/* Dietary Options Styling */
+.dietary-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.dietary-option {
+  position: relative;
+}
+
+.dietary-check-input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.dietary-check-label {
+  display: flex;
+  align-items: center;
+  padding: 8px 15px;
+  background-color: #f8f9fa;
+  border: 1px solid #eaeaea;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.dietary-icon {
+  margin-right: 8px;
+  color: var(--sage-green-primary);
+  transition: all 0.2s ease;
+}
+
+.dietary-check-input:checked + .dietary-check-label {
+  border-color: var(--sage-green-primary);
+  background-color: rgba(192, 181, 150, 0.15);
+  font-weight: 500;
+}
+
+.dietary-check-input:focus + .dietary-check-label {
+  box-shadow: 0 0 0 3px rgba(168, 151, 112, 0.25);
+}
+
+.dietary-check-input:checked + .dietary-check-label .dietary-icon {
+  color: var(--sage-green-dark);
+}
+
+/* Meal Options Styling */
+.meal-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.meal-option {
+  position: relative;
+}
+
+.meal-check-input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.meal-check-label {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #f8f9fa;
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  min-width: 120px;
+}
+
+.meal-icon {
+  margin-right: 8px;
+  color: var(--sage-green-primary);
+  transition: all 0.2s ease;
+}
+
+.meal-check-input:checked + .meal-check-label {
+  border-color: var(--sage-green-primary);
+  background-color: rgba(192, 181, 150, 0.15);
+  font-weight: 500;
+}
+
+.meal-check-input:focus + .meal-check-label {
+  box-shadow: 0 0 0 3px rgba(168, 151, 112, 0.25);
+}
+
+.meal-check-input:checked + .meal-check-label .meal-icon {
+  color: var(--sage-green-dark);
+}
+
+/* Time and Date Input Styling */
+.input-group .input-group-text {
+  background-color: var(--sage-green-light);
+  color: var(--sage-green-dark);
+  border-color: var(--sage-green-light);
+}
+
+input[type="time"], 
+input[type="date"] {
+  height: 48px;
+  font-size: 1rem;
+  color: var(--sage-green-dark);
+}
+
+.form-text {
+  color: #718096;
+  font-size: 0.85rem;
+  margin-top: 6px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .activity-options {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+  }
+  
+  .dietary-options,
+  .meal-options {
+    gap: 8px;
+  }
+  
+  .dietary-check-label,
+  .meal-check-label {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .activity-options {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .dietary-options,
+  .meal-options {
+    justify-content: space-between;
+  }
+  
+  .meal-option,
+  .dietary-option {
+    flex-basis: calc(50% - 5px);
+    margin-bottom: 8px;
+  }
+  
+  .meal-check-label,
+  .dietary-check-label {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* High contrast mode and accessibility support */
+@media (prefers-contrast: more) {
+  .activity-check-input:checked + .activity-check-label,
+  .dietary-check-input:checked + .dietary-check-label,
+  .meal-check-input:checked + .meal-check-label {
+    background-color: #0e4e15;
+    color: white;
+    border-color: black;
+  }
+  
+  .activity-check-input:checked + .activity-check-label .activity-icon,
+  .dietary-check-input:checked + .dietary-check-label .dietary-icon,
+  .meal-check-input:checked + .meal-check-label .meal-icon {
+    color: white;
+  }
+}
+
+/* Focus Indicators for Keyboard Navigation */
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 3px solid var(--focus-ring-color);
+  outline-offset: 2px;
+}
+
+.visually-hidden:not(:focus):not(:active) {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+/* Landing Page Styles */
+.itinerary-landing-section {
+  min-height: 100vh;
+  padding: 120px 0 60px;
+  display: flex;
+  align-items: center;
+  background-color: var(--sage-green-bg);
+}
+
+.main-title {
+  font-size: 2.5rem;
+  color: var(--sage-green-dark);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.strike-through {
+  position: relative;
+  display: inline-block;
+  color: #888;
+}
+
+.strike-through::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background-color: var(--sage-green-primary);
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.intro-text {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.intro-text .lead {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: #505050;
+}
+
+.start-button-container {
+  position: relative;
+  display: inline-block;
+}
+
+#start-planner-btn {
+  min-width: 200px;
+  padding: 15px 30px;
+  font-size: 1.25rem;
+  background-color: var(--sage-green-primary);
+  border-color: var(--sage-green-primary);
+  transition: all 0.3s ease;
+  z-index: 2;
+  position: relative;
+}
+
+#start-planner-btn:hover, 
+#start-planner-btn:focus {
+  background-color: var(--sage-green-dark);
+  border-color: var(--sage-green-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.decorator-line {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  opacity: 0.6;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 2rem;
+  }
+  
+  .intro-text .lead {
+    font-size: 1.1rem;
+  }
+  
+  .decorator-line {
+    display: none;
+  }
+  
+  .itinerary-landing-section {
+    padding: 100px 0 40px;
+  }
+}
+
+/* Back button container for better positioning */
+.back-button-container {
+  padding-top: 65px; /* Space below navbar */
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+/* Back button styling */
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  color: var(--sage-green-dark);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  padding: 8px 16px;
+  border-radius: 4px;
+  background-color: var(--sage-green-bg);
+}
+
+.back-button:hover {
+  background-color: var(--sage-green-light);
+  color: var(--sage-green-dark);
+}
+
+.back-button i {
+  margin-right: 8px;
+}
+
+/* Specific styling for results page back button */
+.results-back-button {
+  margin-bottom: 5px;
+} 

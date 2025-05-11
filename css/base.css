@@ -1,0 +1,211 @@
+/* Base styles with sage green theme */
+:root {
+  --sage-green-primary: #c0b596;
+  --sage-green-secondary: #a89770;
+  --sage-green-light: #B8C9B9;
+  --sage-green-dark: #2c3e2d;
+  --sage-green-bg: #EFF4F0;
+  --text-on-sage: #2C3E2D;
+  --white: #ffffff;
+  --focus-ring-color: #2C3E2DFF;
+  --focus-ring-width: 3px;
+  --reading-highlight: rgba(192, 181, 150, 0.3);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--sage-green-bg);
+  color: var(--text-on-sage);
+  padding-top: 56px; /* Adjusted to match exactly the navbar height */
+}
+
+/* Main content */
+.container {
+  padding: 3rem 1.5rem;
+}
+
+.container h2 {
+  color: var(--sage-green-dark);
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.container h2:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background-color: var(--sage-green-primary);
+}
+
+/* Background colors */
+.bg-light {
+  background-color: var(--sage-green-bg) !important;
+}
+
+/* Add transition effect for page changes */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Content sections improvements */
+.content-wrapper {
+  margin-top: 2rem;
+}
+
+.about-section {
+  background: var(--white);
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 3rem 2rem;
+  margin-bottom: 3rem;
+}
+
+.initiatives-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 2rem 0;
+}
+
+.initiatives-list li {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.initiatives-list li::before {
+  content: '✓';
+  color: var(--sage-green-dark);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+/* Footer styling */
+.site-footer {
+  background-color: var(--sage-green-dark);
+  color: var(--white);
+  padding: 3rem 0 2rem;
+}
+
+.site-footer a {
+  color: var(--white);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.site-footer a:hover {
+  color: var(--sage-green-light);
+  text-decoration: underline;
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Welcome text styling */
+.welcome-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  margin-bottom: 1.5rem;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: more) {
+  :root {
+    --sage-green-dark: #0e4e15;
+    --text-on-sage: #000000;
+    --sage-green-primary: #357a3d;
+    --focus-ring-color: #0000FF;
+    --focus-ring-width: 4px;
+  }
+  
+  .btn {
+    border-width: 2px;
+  }
+  
+  .btn-primary {
+    background-color: #357a3d;
+    color: #ffffff;
+  }
+  
+  .text-success {
+    color: #0e4e15 !important;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Toast styling */
+.toast-container {
+  --bs-toast-zindex: 1070;
+  --bs-toast-padding-x: 0.75rem;
+  --bs-toast-padding-y: 0.5rem;
+  --bs-toast-spacing: 1.5rem;
+  --bs-toast-max-width: 350px;
+  --bs-toast-font-size: 0.875rem;
+  --bs-toast-color: var(--white);
+  --bs-toast-bg: var(--sage-green-dark);
+  --bs-toast-border-width: 0;
+  --bs-toast-border-radius: 0.375rem;
+  --bs-toast-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  --bs-toast-header-color: var(--white);
+  --bs-toast-header-bg: rgba(0, 0, 0, 0.1);
+}
+
+.toast {
+  background-color: var(--sage-green-dark) !important;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.toast .toast-body {
+  padding: 1rem;
+  font-weight: 500;
+}
+
+/* Basic responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 2rem 1rem;
+  }
+  
+  .about-section {
+    padding: 2rem 1rem;
+  }
+} 
