@@ -8,6 +8,16 @@ document.addEventListener('DOMContentLoaded', function() {
     if (storedBlogs) {
         // Use stored blogs if available
         blogs = JSON.parse(storedBlogs);
+        
+        // Ensure each blog has a currentImageIndex
+        blogs.forEach(blog => {
+            if (typeof blog.currentImageIndex === 'undefined') {
+                blog.currentImageIndex = 0;
+            }
+        });
+        
+        // Save back to localStorage
+        localStorage.setItem('blogs', JSON.stringify(blogs));
     } else {
         // Otherwise initialize with sample data
         blogs = [
@@ -20,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fullContent: "My weekend in Brighton was absolutely amazing! I started with a stroll along the iconic Brighton Pier, followed by a visit to the Royal Pavilion. The architecture is breathtaking, and the gardens are so peaceful. I highly recommend trying the local seafood at one of the restaurants along the beachfront.\n\nOn my second day, I explored the North Laine area, which is full of quirky shops and cafes. I spent hours browsing the vintage stores and enjoying coffee at local spots. The street art around the city is also worth checking out.\n\nFor dinner, I tried the local seafood at one of the restaurants along the beachfront. The fish and chips were the best I've ever had! I also visited the Brighton Marina and took a boat tour. The sunset views from the marina are spectacular!\n\nOn my last day, I visited Preston Park, which is beautiful, and enjoyed a picnic there. I also visited the Brighton Open Air Theatre and caught a show. The combination of nature and culture makes Brighton unique.",
                 image: "images/Brighton-Palace-Pier.jpg",
                 images: ["images/Brighton-Palace-Pier.jpg"],
+                currentImageIndex: 0,
                 likes: 42,
                 comments: [
                     { name: "John Smith", date: "2023-06-16", text: "Great post! I'm planning to visit Brighton next month." },
@@ -35,6 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fullContent: "I discovered so many hidden gems during my weekend in Brighton! The North Laine area is full of quirky shops and cafes. I spent hours browsing the vintage stores and enjoying coffee at local spots. The street art around the city is also worth checking out.\n\nOne of my favorite finds was a small bookshop tucked away in a side street. The owner was incredibly knowledgeable about local history and recommended several books about Brighton's past. I also found a vintage clothing store where I picked up a unique jacket that's now my favorite piece of clothing.\n\nFor lunch, I stumbled upon a tiny cafe that served the most amazing homemade cakes. The owner told me the recipe had been in her family for generations. I also visited the Brighton Open Market, which is a great place to find local produce and handmade crafts.\n\nIn the evening, I discovered a small jazz club that wasn't in any of the tourist guides. The atmosphere was incredible, and I met several locals who shared their favorite spots in the city. It was a perfect end to a day of exploration.",
                 image: "images/North_laine.jpeg",
                 images: ["images/North_laine.jpeg"],
+                currentImageIndex: 0,
                 likes: 38,
                 comments: [
                     { name: "Lisa Johnson", date: "2023-06-11", text: "I love the North Laine area too! So many unique shops." }
@@ -49,6 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fullContent: "The pebble beach in Brighton is unlike any other beach I've visited. I spent a morning just sitting and listening to the waves. In the afternoon, I explored the Brighton Marina and took a boat tour. The sunset views from the marina are spectacular!\n\nI started my day early with a walk along the beach. The sound of the pebbles underfoot and the waves crashing against the shore was incredibly peaceful. I found a quiet spot to sit and just take in the beauty of the sea. The morning light made everything look magical.\n\nAfter lunch, I headed to the Brighton Marina. It's much larger than I expected, with plenty of shops, restaurants, and activities. I booked a boat tour that took us along the coast, offering stunning views of the cliffs and the city from the water. The guide was very informative, sharing interesting facts about the area's history and marine life.\n\nAs the day drew to a close, I found a spot at one of the marina's restaurants to watch the sunset. The sky turned beautiful shades of orange and pink, reflecting off the water. It was the perfect end to a perfect day.",
                 image: "images/brighton_beach.jpg",
                 images: ["images/brighton_beach.jpg"],
+                currentImageIndex: 0,
                 likes: 35,
                 comments: [
                     { name: "David Miller", date: "2023-06-06", text: "The sunset at the marina is indeed spectacular!" },
@@ -64,6 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fullContent: "Brighton's food scene is incredible! I tried everything from traditional fish and chips to international cuisine. The Open Market is a must-visit for food lovers. I also took a cooking class at a local restaurant and learned to make some Brighton specialties.\n\nMy culinary adventure began with breakfast at a small cafe in the Lanes. The avocado toast was perfectly prepared, and the coffee was some of the best I've ever had. The owner told me they source their beans from a local roastery, which explains the amazing flavor.\n\nFor lunch, I headed to the Open Market, which is a food lover's paradise. I sampled various local cheeses, fresh bread, and artisanal chocolates. I also picked up some ingredients for a picnic later in the day. The market vendors were friendly and happy to share their knowledge about their products.\n\nIn the afternoon, I took a cooking class at a local restaurant. The chef taught us how to make traditional Brighton fish and chips, as well as some other local specialties. It was a hands-on experience, and I learned techniques I can use at home. The best part was getting to eat what we cooked!\n\nFor dinner, I tried a restaurant that specializes in international cuisine. The menu featured dishes from around the world, all with a Brighton twist. I particularly enjoyed the seafood paella, which incorporated local ingredients.\n\nMy food journey in Brighton was a highlight of my trip, and I can't wait to return and try more of the city's culinary offerings.",
                 image: "images/Open-Market1.jpg",
                 images: ["images/Open-Market1.jpg","images/Open-Market2.jpg"],
+                currentImageIndex: 0,
                 likes: 29,
                 comments: [
                     { name: "James Wilson", date: "2023-05-29", text: "The Open Market is my favorite place in Brighton!" },
@@ -79,6 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fullContent: "I was pleasantly surprised by how many green spaces Brighton has to offer. Preston Park is beautiful, and I enjoyed a picnic there. I also visited the Brighton Open Air Theatre and caught a show. The combination of nature and culture makes Brighton unique.\n\nMy exploration of Brighton's green spaces began at Preston Park, which is the largest urban park in the city. The park features beautiful gardens, a playground, and plenty of open space for picnics and activities. I spent a morning there, enjoying the peaceful atmosphere and watching people go about their day.\n\nNext, I visited the Brighton Open Air Theatre, which is located in a natural amphitheater. The setting is magical, with trees surrounding the stage and the sky as the backdrop. I was lucky enough to catch a performance of Shakespeare's 'A Midsummer Night's Dream,' which was enhanced by the natural setting.\n\nI also explored the Royal Pavilion Gardens, which are meticulously maintained and offer a perfect blend of formal and informal landscaping. The gardens provide a beautiful setting for the Royal Pavilion and are a great place to relax and take in the architecture.\n\nAnother highlight was the Brighton and Hove Seafront, which features a promenade lined with trees and gardens. I took a long walk along the seafront, enjoying the sea breeze and the views of the beach and the city.\n\nMy visit to Brighton's green spaces showed me that the city offers a perfect balance of urban and natural environments. The parks and gardens provide a welcome escape from the hustle and bustle of the city, while the cultural venues set in natural settings offer a unique experience.",
                 image: "images/open-air-theatre.jpeg",
                 images: ["images/open-air-theatre.jpeg"],
+                currentImageIndex: 0,
                 likes: 27,
                 comments: [
                     { name: "Tom Harris", date: "2023-05-21", text: "Preston Park is my favorite place to relax in Brighton." },
@@ -547,6 +562,7 @@ document.addEventListener('DOMContentLoaded', function() {
             fullContent: content,
             image: mainImage,
             images: images.length > 0 ? images : [mainImage], // Store all images
+            currentImageIndex: 0, // Initialize the current image index
             likes: 0,
             comments: []
         };

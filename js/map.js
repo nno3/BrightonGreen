@@ -27,14 +27,19 @@ document.addEventListener('DOMContentLoaded', function() {
       iconAnchor: [12, 41],
       popupAnchor: [1, -34]
     }),
-
     'attraction': L.icon({
       iconUrl: 'images/attraction-icon.png',
       iconSize: [25, 41],
       iconAnchor: [12, 41],
       popupAnchor: [1, -34]
+    }),
+    'food': L.icon({
+      // Create a simple food icon using one of the existing icons
+      iconUrl: 'images/food-icon.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34]
     })
-
   };
 
   // Location data - in real app, this would come from a database
@@ -148,10 +153,78 @@ document.addEventListener('DOMContentLoaded', function() {
       description: 'Built in 1899, Brighton Palace Pier is one of the most iconic landmarks of the Sussex coast. This Victorian pleasure pier extends 1,722 feet into the English Channel and offers traditional seaside entertainment for all ages.',
       image: 'images/Brighton-Pier.jpg',
       detailsLink: 'attractions.html'
+    },
+    {
+      id: 'british-airways-i360',
+      name: 'British Airways i360',
+      type: 'attraction',
+      coordinates: [50.8225, -0.1508],
+      address: 'Lower Kings Road, Brighton BN1 2LN',
+      description: 'The British Airways i360 is a 162-meter tall observation tower on the seafront of Brighton. Designed by the creators of the London Eye, this futuristic attraction offers visitors a unique \'flight\' experience in a giant glass pod that slowly ascends to provide breathtaking 360-degree views.',
+      image: 'images/british-airways.jpeg',
+      detailsLink: 'attractions.html'
+    },
+    {
+      id: 'sea-life-brighton',
+      name: 'Sea Life Brighton',
+      type: 'attraction',
+      coordinates: [50.8197, -0.1350],
+      address: 'Marine Parade, Brighton BN2 1TB',
+      description: 'Sea Life Brighton, the world\'s oldest operating aquarium (originally opened in 1872), offers visitors a glimpse into the fascinating underwater world. The Victorian-era architecture houses over 5,500 sea creatures, from sharks and rays to turtles and colorful tropical fish.',
+      image: 'images/Sea-life.jpeg',
+      detailsLink: 'attractions.html'
+    },
+    // Food Locations
+    {
+      id: 'food-for-friends',
+      name: 'Food for Friends',
+      type: 'food',
+      coordinates: [50.8214, -0.1400], // Approximate coordinates for Prince Albert St
+      address: '17-18 Prince Albert St, Brighton BN1 1HF',
+      description: 'Award-winning vegetarian restaurant serving creative, sustainable dishes. Established in 1981, it offers creative vegetarian and vegan cuisine made from locally-sourced, organic ingredients.',
+      image: 'images/food-for-friends.jpeg',
+      detailsLink: 'attractions.html#dining-heading'
+    },
+    {
+      id: 'the-salt-room',
+      name: 'The Salt Room',
+      type: 'food',
+      coordinates: [50.8214, -0.1476], // Approximate coordinates for Kings Road
+      address: '106 Kings Road, Brighton BN1 2FU',
+      description: 'Modern seafood restaurant with focus on sustainable fishing practices. Located on Brighton\'s seafront, it offers stunning ocean views and focuses on sustainably caught fish and seafood.',
+      image: 'images/the-salt-room.jpeg',
+      detailsLink: 'attractions.html#dining-heading'
+    },
+    {
+      id: 'lucky-beach-cafe',
+      name: 'Lucky Beach Café',
+      type: 'food',
+      coordinates: [50.8204, -0.1390], // Approximate coordinates for Kings Road Arches
+      address: '183 Kings Road Arches, Brighton BN1 1NB',
+      description: 'Sustainable beachfront café serving organic meals and locally-roasted coffee. They\'ve eliminated single-use plastics, composts food waste, and uses renewable energy.',
+      image: 'images/lucky-beach-cafe.jpeg',
+      detailsLink: 'attractions.html#dining-heading'
+    },
+    {
+      id: 'the-chilli-pickle',
+      name: 'The Chilli Pickle',
+      type: 'food',
+      coordinates: [50.8236, -0.1378], // Approximate coordinates for Jubilee St
+      address: '17 Jubilee St, Brighton BN1 1GE',
+      description: 'Authentic Indian cuisine with focus on regional specialties and sustainable practices. Award-winning restaurant sources spices directly from trusted suppliers in India while using locally-sourced meat, fish, and produce.',
+      image: 'images/the-chilli-pickel.jpeg',
+      detailsLink: 'attractions.html#dining-heading'
+    },
+    {
+      id: 'metro-deco',
+      name: 'Metro Deco',
+      type: 'food',
+      coordinates: [50.8189, -0.1277], // Approximate coordinates for Upper St James St
+      address: '38 Upper St James\'s St, Kemptown, Brighton BN2 1JN',
+      description: 'Elegant Art Deco tea room serving artisanal teas and homemade pastries. This vintage-inspired tea room offers over 30 varieties of loose-leaf tea alongside a delicious selection of homemade cakes.',
+      image: 'images/metrodeco.jpeg',
+      detailsLink: 'attractions.html#dining-heading'
     }
-
-
-
   ];
 
   // Create layer groups for filtering
@@ -159,7 +232,8 @@ document.addEventListener('DOMContentLoaded', function() {
     'beach-cleanup': L.layerGroup(),
     'park': L.layerGroup(),
     'garden': L.layerGroup(),
-    'attraction': L.layerGroup()
+    'attraction': L.layerGroup(),
+    'food': L.layerGroup()
   };
 
   // Add markers for each location
@@ -207,6 +281,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const destinationAddress = encodeURIComponent(location.address);
     directionsLink.href = `https://www.google.com/maps/dir/?api=1&destination=${destinationAddress}`;
     
+    // Add a click handler to ensure the link opens in a new tab
+    directionsLink.onclick = function(e) {
+      e.preventDefault(); // Prevent the default action
+      const url = this.getAttribute('href');
+      window.open(url, '_blank'); // Force opening in a new tab
+      return false;
+    };
+    
     // Clear any existing modal instances first
     const existingModal = bootstrap.Modal.getInstance(document.getElementById('locationModal'));
     if (existingModal) {
@@ -240,10 +322,10 @@ document.addEventListener('DOMContentLoaded', function() {
         return 'Park';
       case 'garden':
         return 'Garden';
-      case 'museum':
-        return 'Museum';
       case 'attraction':
         return 'Attraction';
+      case 'food':
+        return 'Food';
       default:
         return type.charAt(0).toUpperCase() + type.slice(1);
     }

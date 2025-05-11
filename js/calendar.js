@@ -35,12 +35,12 @@ document.addEventListener('DOMContentLoaded', function() {
       updateEventDate(info.event);
     },
     // Make calendar more zoomed out
-    aspectRatio: 1.8, // Increase this value to make the calendar more "zoomed out"
-    contentHeight: 'auto', // Auto height based on content
-    dayMaxEvents: 3, // Show up to 3 events per day before showing "more" link
+    aspectRatio: 1.5, // Decreased from 1.8 to make calendar taller
+    contentHeight: 700, // Fixed height in pixels instead of 'auto' to prevent footer overlap
+    dayMaxEvents: 4, // Increased from 3 to show more events per day before showing "more" link
     views: {
       dayGrid: {
-        dayMaxEvents: 3
+        dayMaxEvents: 4 // Increased from 3
       }
     },
     // Improve accessibility
@@ -63,67 +63,71 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Function to show event details in modal
   function showEventDetails(event) {
-    // Set the event title
+    // Set button data attributes for delete, edit and export
+    document.getElementById('deleteEvent').dataset.eventId = event.id;
+    document.getElementById('editEvent').dataset.eventId = event.id;
+    document.getElementById('addToPersonalCalendar').dataset.eventId = event.id;
+    
+    // Set modal title to event title
     document.getElementById('eventTitle').textContent = event.title;
     
-    // Format and show the event date
+    // Set event date in badge format
     const eventDate = new Date(event.start);
-    const formattedDate = eventDate.toLocaleDateString('en-US', { 
-      weekday: 'long', 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
+    const formattedDate = eventDate.toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
     });
-    document.getElementById('eventDateBadge').textContent = formattedDate;
+    document.getElementById('eventDate').textContent = formattedDate;
     
-    // Handle optional time
+    // Set event time if available
     const timeContainer = document.getElementById('eventTimeContainer');
-    if (event.extendedProps.time) {
+    if (event.extendedProps && event.extendedProps.time) {
       document.getElementById('eventTime').textContent = event.extendedProps.time;
       timeContainer.style.display = 'flex';
     } else {
       timeContainer.style.display = 'none';
     }
     
-    // Handle optional location
+    // Set event location if available
     const locationContainer = document.getElementById('eventLocationContainer');
-    if (event.extendedProps.location) {
+    if (event.extendedProps && event.extendedProps.location) {
       document.getElementById('eventLocation').textContent = event.extendedProps.location;
       locationContainer.style.display = 'flex';
     } else {
       locationContainer.style.display = 'none';
     }
     
-    // Handle optional description
+    // Set event description if available
     const descriptionContainer = document.getElementById('eventDescriptionContainer');
-    if (event.extendedProps.description) {
+    if (event.extendedProps && event.extendedProps.description) {
       document.getElementById('eventDescription').textContent = event.extendedProps.description;
       descriptionContainer.style.display = 'flex';
     } else {
       descriptionContainer.style.display = 'none';
     }
-
-    // Setup edit/delete buttons
-    const editButton = document.getElementById('editEvent');
-    const deleteButton = document.getElementById('deleteEvent');
-    const exportButton = document.getElementById('addToPersonalCalendar');
     
-    // Store the event ID in data attributes
-    editButton.dataset.eventId = event.id;
-    deleteButton.dataset.eventId = event.id;
-    exportButton.dataset.eventId = event.id;
-    
-    // Get modal element
-    const modalElement = document.getElementById('eventModal');
+    // Show all buttons by default (restore original UI)
+    document.getElementById('deleteEvent').style.display = 'inline-block';
+    document.getElementById('editEvent').style.display = 'inline-block';
+    document.getElementById('addToPersonalCalendar').style.display = 'inline-block';
     
     // Make the modal a bit wider to give more space for buttons
+    const modalElement = document.getElementById('eventModal');
     modalElement.querySelector('.modal-dialog').classList.add('modal-lg');
     
+    // Get the current modal instance
+    const currentModal = bootstrap.Modal.getInstance(document.getElementById('eventModal'));
+    if (currentModal) {
+      currentModal.dispose();
+    }
+    
     // Show the modal
-    const eventModal = new bootstrap.Modal(modalElement);
+    const eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
     eventModal.show();
     
-    // Announce to screen reader that event details are displayed
+    // Announce to screen reader
     if (window.announceToScreenReader) {
       window.announceToScreenReader(`Event details for ${event.title} on ${formattedDate} are now displayed`);
     }
@@ -453,14 +457,39 @@ document.addEventListener('DOMContentLoaded', function() {
     const eventToExport = existingEvents.find(event => event.id === eventId);
     
     if (eventToExport) {
+      console.log("Exporting event:", eventToExport); // Debug log
+      
+      // Parse date properly - handle both formats
+      let startDate;
+      try {
+        // If time is present, add it to the date string with a T separator
+        if (eventToExport.extendedProps.time) {
+          startDate = new Date(`${eventToExport.start}T${eventToExport.extendedProps.time}`);
+        } else {
+          // For all-day events, use just the date
+          startDate = new Date(`${eventToExport.start}T00:00:00`);
+        }
+        
+        // If date is invalid, create a fallback
+        if (isNaN(startDate.getTime())) {
+          console.warn("Invalid date detected, using current date as fallback");
+          startDate = new Date();
+        }
+      } catch (e) {
+        console.error("Error parsing date:", e);
+        startDate = new Date(); // Fallback to current date
+      }
+      
       // Create calendar file content
       const icsEvent = {
         title: eventToExport.title,
         location: eventToExport.extendedProps.location || '',
         description: eventToExport.extendedProps.description || '',
-        start: new Date(eventToExport.start + (eventToExport.extendedProps.time ? ' ' + eventToExport.extendedProps.time : '')),
+        start: startDate,
         duration: 120 // 2 hours
       };
+      
+      console.log("ICS Event:", icsEvent); // Debug log
       
       const icsContent = createICSFile(icsEvent);
       
@@ -479,6 +508,9 @@ document.addEventListener('DOMContentLoaded', function() {
       if (window.announceToScreenReader) {
         window.announceToScreenReader(`${eventToExport.title} has been exported to your calendar`);
       }
+    } else {
+      // If event not found, show error message
+      showErrorToast('Unable to export event. Please try again.');
     }
   });
   

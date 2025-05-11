@@ -18,6 +18,9 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
   
+  <!-- Common CSS for consistent components across pages -->
+  <link rel="stylesheet" href="css/common.css">
+  
   <!-- Map Specific CSS -->
   <link rel="stylesheet" href="css/map.css">
 </head>
@@ -54,8 +57,17 @@
           <li class="nav-item">
             <a class="nav-link active" href="map.html">Map</a>
           </li>
+        <li class="nav-item">
+          <a class="nav-link" href="itinerary-planner.html" aria-label="Plan your itinerary">Itinerary Planner</a>
+        </li>
           <li class="nav-item">
             <a class="nav-link" href="our-impact.html">Our Impact</a>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" id="tts-toggle" aria-label="Toggle text-to-speech" aria-pressed="false">
+              <i class="fas fa-volume-up" aria-hidden="true"></i>
+              <span>Read Aloud</span>
+            </button>
           </li>
           <li class="nav-item" id="auth-menu-item">
             <a class="nav-link" id="auth-link" href="signUp.html">
@@ -67,123 +79,134 @@
     </div>
   </nav>
 
-  <!-- Map Section -->
-  <section class="map-page-section" style="padding-top: 100px;">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <h1 class="text-center mb-4">Explore Green Brighton</h1>
-          <div class="map-page-container">
-            <div class="map-filters mb-4">
-              <div class="row align-items-center">
-                <div class="col-md-9">
-                  <div class="d-flex align-items-center">
-                    <h4 class="me-3 mb-0">Filter:</h4>
-                    <div class="filter-buttons">
-                      <button type="button" class="btn btn-sm btn-outline-success me-2 mb-2" data-filter="beach-cleanup">
-                        <i class="fas fa-water me-1"></i> Beach Cleanups
-                      </button>
-                      <button type="button" class="btn btn-sm btn-outline-success me-2 mb-2" data-filter="park">
-                        <i class="fas fa-tree me-1"></i> Parks
-                      </button>
-                      <button type="button" class="btn btn-sm btn-outline-success me-2 mb-2" data-filter="garden">
-                        <i class="fas fa-leaf me-1"></i> Gardens
-                      </button>
-                      <button type="button" class="btn btn-sm btn-outline-success me-2 mb-2" data-filter="attraction">
-                        <i class="fas fa-star me-1"></i> Attractions
-                      </button>
-                      <button type="button" class="btn btn-sm btn-outline-primary me-2 mb-2" data-filter="all">
-                        <i class="fas fa-globe me-1"></i> Show All
+  <!-- Main Content -->
+  <main id="main-content" class="readable-content">
+    <!-- Map Section -->
+    <section class="map-page-section" style="padding-top: 100px;">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h1 class="text-center mb-4">Explore Green Brighton</h1>
+            <div class="map-page-container">
+              <div class="map-filters mb-4">
+                <div class="row align-items-center">
+                  <div class="col-md-9">
+                    <div class="d-flex align-items-center">
+                      <h4 class="me-3 mb-0">Filter:</h4>
+                      <div class="filter-buttons">
+                        <button type="button" class="btn btn-sm btn-outline-success me-2 mb-2" data-filter="beach-cleanup">
+                          <i class="fas fa-water me-1"></i> Beach Cleanups
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-success me-2 mb-2" data-filter="park">
+                          <i class="fas fa-tree me-1"></i> Parks
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-success me-2 mb-2" data-filter="garden">
+                          <i class="fas fa-leaf me-1"></i> Gardens
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-success me-2 mb-2" data-filter="attraction">
+                          <i class="fas fa-star me-1"></i> Attractions
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-success me-2 mb-2" data-filter="food">
+                          <i class="fas fa-utensils me-1"></i> Food
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-primary me-2 mb-2" data-filter="all">
+                          <i class="fas fa-globe me-1"></i> Show All
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="input-group">
+                      <input type="text" class="form-control form-control-sm" placeholder="Search locations..." id="map-search">
+                      <button class="btn btn-sm btn-primary" type="button" id="map-search-btn">
+                        <i class="fas fa-search"></i>
                       </button>
                     </div>
                   </div>
                 </div>
-                <div class="col-md-3">
-                  <div class="input-group">
-                    <input type="text" class="form-control form-control-sm" placeholder="Search locations..." id="map-search">
-                    <button class="btn btn-sm btn-primary" type="button" id="map-search-btn">
-                      <i class="fas fa-search"></i>
-                    </button>
+              </div>
+              <div id="interactive-map" style="height: 450px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);"></div>
+              <div class="map-legend mt-3">
+                <div class="d-flex flex-wrap">
+                  <div class="legend-item me-3 mb-2">
+                    <span class="legend-color" style="background-color: #2196F3;"></span>
+                    <span class="legend-text">Beach Cleanup Locations</span>
+                  </div>
+                  <div class="legend-item me-3 mb-2">
+                    <span class="legend-color" style="background-color: #4CAF50;"></span>
+                    <span class="legend-text">Parks</span>
+                  </div>
+                  <div class="legend-item me-3 mb-2">
+                    <span class="legend-color" style="background-color: #FF9800;"></span>
+                    <span class="legend-text">Gardens</span>
+                  </div>
+
+                  <div class="legend-item me-3 mb-2">
+                    <span class="legend-color" style="background-color: #795548;"></span>
+                    <span class="legend-text">Attractions</span>
+                  </div>
+                  
+                  <div class="legend-item me-3 mb-2">
+                    <span class="legend-color" style="background-color: #E91E63;"></span>
+                    <span class="legend-text">Food</span>
                   </div>
                 </div>
               </div>
             </div>
-            <div id="interactive-map" style="height: 450px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);"></div>
-            <div class="map-legend mt-3">
-              <div class="d-flex flex-wrap">
-                <div class="legend-item me-3 mb-2">
-                  <span class="legend-color" style="background-color: #2196F3;"></span>
-                  <span class="legend-text">Beach Cleanup Locations</span>
-                </div>
-                <div class="legend-item me-3 mb-2">
-                  <span class="legend-color" style="background-color: #4CAF50;"></span>
-                  <span class="legend-text">Parks</span>
-                </div>
-                <div class="legend-item me-3 mb-2">
-                  <span class="legend-color" style="background-color: #FF9800;"></span>
-                  <span class="legend-text">Gardens</span>
-                </div>
-
-                <div class="legend-item me-3 mb-2">
-                  <span class="legend-color" style="background-color: #795548;"></span>
-                  <span class="legend-text">Attractions</span>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Location Details Modal -->
-  <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="locationModalLabel">Location Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="location-detail-header mb-3">
-            <h3 id="locationTitle" class="mb-0"></h3>
-            <div class="location-type-badge" id="locationType"></div>
+    <!-- Location Details Modal -->
+    <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="locationModalLabel">Location Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          
-          <div class="location-image mb-3" id="locationImageContainer">
-            <img src="" alt="Location image" id="locationImage" class="img-fluid rounded">
-          </div>
-          
-          <div class="location-details-container">
-            <div class="location-detail-item" id="locationAddressContainer">
-              <div class="location-detail-icon">
-                <i class="fas fa-map-marker-alt"></i>
-              </div>
-              <div class="location-detail-content">
-                <span class="location-detail-label">Address</span>
-                <span id="locationAddress" class="location-detail-value"></span>
-              </div>
+          <div class="modal-body">
+            <div class="location-detail-header mb-3">
+              <h3 id="locationTitle" class="mb-0"></h3>
+              <div class="location-type-badge" id="locationType"></div>
             </div>
             
-            <div class="location-detail-item" id="locationDescriptionContainer">
-              <div class="location-detail-icon">
-                <i class="fas fa-align-left"></i>
+            <div class="location-image mb-3" id="locationImageContainer">
+              <img src="" alt="Location image" id="locationImage" class="img-fluid rounded">
+            </div>
+            
+            <div class="location-details-container">
+              <div class="location-detail-item" id="locationAddressContainer">
+                <div class="location-detail-icon">
+                  <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="location-detail-content">
+                  <span class="location-detail-label">Address</span>
+                  <span id="locationAddress" class="location-detail-value"></span>
+                </div>
               </div>
-              <div class="location-detail-content">
-                <span class="location-detail-label">Description</span>
-                <p id="locationDescription" class="location-detail-value"></p>
+              
+              <div class="location-detail-item" id="locationDescriptionContainer">
+                <div class="location-detail-icon">
+                  <i class="fas fa-align-left"></i>
+                </div>
+                <div class="location-detail-content">
+                  <span class="location-detail-label">Description</span>
+                  <p id="locationDescription" class="location-detail-value"></p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="modal-footer justify-content-center">
-          <a href="#" id="getDirections" class="btn btn-success px-4 btn-icon" target="_blank">
-            <i class="fas fa-directions me-2"></i>Get Directions
-          </a>
+          <div class="modal-footer justify-content-center">
+            <a href="#" id="getDirections" class="btn btn-success px-4 btn-icon" target="_blank">
+              <i class="fas fa-directions me-2"></i>Get Directions
+            </a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </main>
 
   <!-- Footer -->
   <footer class="site-footer" role="contentinfo">
@@ -225,8 +248,8 @@
   <script src="js/jquery-3.6.0.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="js/text-to-speech.js"></script>
   <script src="js/map.js"></script>
-  <script src="js/signIn.js"></script>
   <script src="js/script.js"></script>
 </body>
 </html> 

@@ -22,9 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize home page calendar preview if it exists
     initHomeCalendarPreview();
     
-    // Initialize text-to-speech functionality
-    initTextToSpeech();
-    
     // Handle auth button clicks
     document.addEventListener('click', function(e) {
         const authButton = e.target.closest('.auth-button');
@@ -334,302 +331,54 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
     }
     
-    // Text-to-speech functionality
-    function initTextToSpeech() {
-        // Check if the SpeechSynthesis API is available
-        if (!('speechSynthesis' in window)) {
-            console.log('Text-to-speech not supported in this browser.');
-            return;
-        }
-        
-        // Create a button for the navbar
-        const ttsButton = document.createElement('li');
-        ttsButton.className = 'nav-item';
-        ttsButton.innerHTML = `
-            <a class="nav-link" href="#" id="tts-toggle" aria-label="Toggle text-to-speech">
-                <i class="fas fa-volume-up me-1" aria-hidden="true"></i><span>Read Aloud</span>
-            </a>
-        `;
-        
-        // Add the button to the navbar
-        const navbar = document.querySelector('.navbar-nav');
-        if (navbar) {
-            navbar.insertBefore(ttsButton, document.getElementById('auth-menu-item'));
-        }
-        
-        // Initialize text-to-speech state
-        let isSpeaking = false;
-        let currentUtterance = null;
-        let elementsToRead = [];
-        let currentElementIndex = 0;
-        
-        // For blog detail pages, we might need to wait for content to load
-        if (window.location.href.includes('blog-detail.html')) {
-            // Check if content is loaded already
-            const checkContentLoaded = setInterval(() => {
-                const blogContent = document.querySelector('.blog-content');
-                // If blog content is found and not just loading spinner
-                if (blogContent && !document.querySelector('.blog-content .spinner-border')) {
-                    clearInterval(checkContentLoaded);
-                    console.log('Blog content loaded, TTS ready');
+    // Sidebar toggle functionality
+    const sidebarToggleBtn = document.getElementById('sidebar-toggle');
+    if (sidebarToggleBtn) {
+        sidebarToggleBtn.addEventListener('click', function() {
+            document.body.classList.toggle('sidebar-collapsed');
+            
+            // Change the toggle icon direction
+            const toggleIcon = this.querySelector('i');
+            if (document.body.classList.contains('sidebar-collapsed')) {
+                toggleIcon.classList.remove('fa-chevron-left');
+                toggleIcon.classList.add('fa-chevron-right');
+                // Announce to screen reader
+                if (window.announceToScreenReader) {
+                    window.announceToScreenReader('Sidebar collapsed');
                 }
-            }, 500);
-        }
-        
-        // Toggle text-to-speech on button click
-        document.addEventListener('click', function(e) {
-            if (e.target && e.target.closest('#tts-toggle')) {
-                e.preventDefault();
-                
-                if (isSpeaking) {
-                    stopSpeaking();
-                } else {
-                    startSpeaking();
-                }
-            }
-        });
-        
-        // Function to start speaking page content
-        function startSpeaking() {
-            if (isSpeaking) return;
-            
-            // Find main content to read
-            const mainContent = document.getElementById('main-content');
-            if (!mainContent) {
-                announceToScreenReader('No content found to read.');
-                return;
-            }
-            
-            // Determine page type to better target elements
-            const isBlogDetail = window.location.href.includes('blog-detail.html');
-            
-            // Get all readable elements with more specific selectors for blog detail pages
-            let selectors = 'p, h1, h2, h3, h4, h5, li, .blog-title, .blog-text, .card-text, .card-subtitle';
-            
-            if (isBlogDetail) {
-                // Add specific blog detail page selectors, but avoid the blog-meta container
-                // to prevent reading author and date twice
-                selectors += ', .blog-author, .blog-date';
-            }
-            
-            // First gather all potential elements
-            let potentialElements = Array.from(mainContent.querySelectorAll(selectors))
-                .filter(element => {
-                    // Skip hidden elements or empty elements
-                    return window.getComputedStyle(element).display !== 'none' && 
-                           element.textContent.trim() !== '';
-                });
-            
-            // For blog detail page, remove elements that would cause duplicate reading
-            if (isBlogDetail) {
-                // Skip the blog-meta div since we're reading its individual child elements
-                potentialElements = potentialElements.filter(element => 
-                    !element.classList.contains('blog-meta')
-                );
-                
-                // Make sure we're not getting duplicate content
-                let seenText = new Set();
-                potentialElements = potentialElements.filter(element => {
-                    // Skip elements with duplicate text content
-                    const text = element.textContent.trim();
-                    if (seenText.has(text)) {
-                        return false;
-                    }
-                    seenText.add(text);
-                    return true;
-                });
-            }
-            
-            elementsToRead = potentialElements;
-            
-            if (elementsToRead.length === 0) {
-                // If no elements found initially, try again after a short delay
-                // This helps with dynamically loaded content
-                setTimeout(() => {
-                    // Rerun the same logic to get elements after content has loaded
-                    let potentialElements = Array.from(mainContent.querySelectorAll(selectors))
-                        .filter(element => {
-                            return window.getComputedStyle(element).display !== 'none' && 
-                                   element.textContent.trim() !== '';
-                        });
-                    
-                    // Apply the same filtering for blog detail pages
-                    if (isBlogDetail) {
-                        potentialElements = potentialElements.filter(element => 
-                            !element.classList.contains('blog-meta')
-                        );
-                        
-                        let seenText = new Set();
-                        potentialElements = potentialElements.filter(element => {
-                            const text = element.textContent.trim();
-                            if (seenText.has(text)) {
-                                return false;
-                            }
-                            seenText.add(text);
-                            return true;
-                        });
-                    }
-                    
-                    elementsToRead = potentialElements;
-                    
-                    if (elementsToRead.length === 0) {
-                        announceToScreenReader('No readable content found.');
-                        return;
-                    } else {
-                        // We found content after the delay, continue with reading
-                        currentElementIndex = 0;
-                        readCurrentElement();
-                        isSpeaking = true;
-                        updateTtsButton();
-                        announceToScreenReader('Reading page content aloud. Click the Read Aloud button again to stop.');
-                    }
-                }, 800); // Slightly longer delay to ensure content is loaded
-                return;
-            }
-            
-            // Start from the first element
-            currentElementIndex = 0;
-            readCurrentElement();
-            
-            // Mark as speaking
-            isSpeaking = true;
-            
-            // Update button appearance
-            updateTtsButton();
-            
-            // Announce to users
-            announceToScreenReader('Reading page content aloud. Click the Read Aloud button again to stop.');
-        }
-        
-        // Function to read the current element
-        function readCurrentElement() {
-            if (currentElementIndex >= elementsToRead.length) {
-                stopSpeaking();
-                return;
-            }
-            
-            // Get the current element to read
-            const element = elementsToRead[currentElementIndex];
-            
-            // Skip empty elements or those with no readable text
-            if (!element || !element.textContent || element.textContent.trim() === '') {
-                currentElementIndex++;
-                readCurrentElement();
-                return;
-            }
-            
-            // Special case for blog content - if this is a blog-detail page and we're reading a .blog-text element
-            const isBlogText = element.classList.contains('blog-text');
-            let textToRead = element.textContent;
-            
-            // For blog text that might contain HTML, extract just the text 
-            if (isBlogText && element.innerHTML.includes('<br>')) {
-                // Replace <br> tags with spaces for better reading
-                textToRead = element.innerHTML.replace(/<br\s*\/?>/gi, '. ');
-                // Remove any other HTML tags
-                textToRead = textToRead.replace(/<[^>]*>/g, '');
-            }
-            
-            // Remove highlight from all elements
-            elementsToRead.forEach(el => el.classList.remove('reading-highlight'));
-            
-            // Add highlight to current element
-            element.classList.add('reading-highlight');
-            
-            // Scroll element into view if not visible
-            const elementRect = element.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-            if (elementRect.top < 0 || elementRect.bottom > windowHeight) {
-                element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-            
-            // Create a new utterance for this element
-            currentUtterance = new SpeechSynthesisUtterance(textToRead);
-            
-            // Set language to English
-            currentUtterance.lang = 'en-GB';
-            
-            // Set a medium speech rate
-            currentUtterance.rate = 0.9;
-            
-            // Event for when speech ends
-            currentUtterance.onend = function() {
-                // Move to the next element
-                currentElementIndex++;
-                
-                // If we have more elements to read, continue
-                if (currentElementIndex < elementsToRead.length && isSpeaking) {
-                    readCurrentElement();
-                } else {
-                    // Otherwise, we're done
-                    stopSpeaking();
-                }
-            };
-            
-            // Start speaking
-            window.speechSynthesis.speak(currentUtterance);
-        }
-        
-        // Function to stop speaking
-        function stopSpeaking() {
-            if (!isSpeaking) return;
-            
-            window.speechSynthesis.cancel();
-            isSpeaking = false;
-            currentUtterance = null;
-            
-            // Remove highlight from all elements
-            if (elementsToRead.length > 0) {
-                elementsToRead.forEach(el => el.classList.remove('reading-highlight'));
-            }
-            
-            // Reset
-            elementsToRead = [];
-            currentElementIndex = 0;
-            
-            // Update button appearance
-            updateTtsButton();
-            
-            // Announce to users
-            announceToScreenReader('Stopped reading aloud.');
-        }
-        
-        // Add keyboard shortcut for text-to-speech (Alt+R)
-        document.addEventListener('keydown', function(e) {
-            // Alt + R
-            if (e.altKey && e.key === 'r') {
-                e.preventDefault();
-                
-                if (isSpeaking) {
-                    stopSpeaking();
-                } else {
-                    startSpeaking();
-                }
-            }
-        });
-        
-        // Function to update the TTS button appearance
-        function updateTtsButton() {
-            const ttsToggle = document.getElementById('tts-toggle');
-            const ttsIcon = document.querySelector('#tts-toggle i');
-            const ttsText = document.querySelector('#tts-toggle span');
-            
-            if (isSpeaking) {
-                ttsToggle.classList.add('active');
-                ttsIcon.className = 'fas fa-volume-mute me-1';
-                ttsText.textContent = 'Stop Reading';
-                ttsToggle.setAttribute('aria-label', 'Stop text-to-speech (Alt+R)');
             } else {
-                ttsToggle.classList.remove('active');
-                ttsIcon.className = 'fas fa-volume-up me-1';
-                ttsText.textContent = 'Read Aloud';
-                ttsToggle.setAttribute('aria-label', 'Start text-to-speech (Alt+R)');
+                toggleIcon.classList.remove('fa-chevron-right');
+                toggleIcon.classList.add('fa-chevron-left');
+                // Announce to screen reader
+                if (window.announceToScreenReader) {
+                    window.announceToScreenReader('Sidebar expanded');
+                }
+            }
+        });
+    }
+    
+    // Set initial state based on window size
+    function setSidebarInitialState() {
+        if (window.innerWidth <= 992) {
+            document.body.classList.add('sidebar-collapsed');
+            const toggleIcon = document.querySelector('.sidebar-toggle i');
+            if (toggleIcon) {
+                toggleIcon.classList.remove('fa-chevron-left');
+                toggleIcon.classList.add('fa-chevron-right');
             }
         }
     }
     
-    // Make updateAuthUI available globally
-    window.updateAuthUI = updateAuthUI;
-    window.announceToScreenReader = announceToScreenReader;
+    // Set initial state on load
+    setSidebarInitialState();
+    
+    // Update sidebar state on window resize
+    window.addEventListener('resize', function() {
+        setSidebarInitialState();
+    });
 });
+
+// Make updateAuthUI available globally
+window.updateAuthUI = updateAuthUI;
+window.announceToScreenReader = announceToScreenReader;
 

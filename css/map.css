@@ -142,7 +142,7 @@
 }
 
 #locationModal .modal-header {
-  background-color: var(--sage-green-light);
+  background-color:  #a89770;
   border-bottom: 1px solid var(--sage-green-primary);
   padding: 0.85rem 1.25rem;
 }
@@ -184,7 +184,10 @@
   background-color: #FF9800;
 }
 .location-type-badge.attraction {
-  background-color:  #795548;
+  background-color: #795548;
+}
+.location-type-badge.food {
+  background-color: #E91E63;
 }
 .location-image {
   border-radius: 6px;

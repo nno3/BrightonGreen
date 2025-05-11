@@ -15,11 +15,24 @@
   <!-- AOS (Animate On Scroll) CSS -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="css/style.css">
+  <!-- Core CSS Files -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/buttons.css">
+  <link rel="stylesheet" href="css/accessibility.css">
+  <link rel="stylesheet" href="css/components.css">
+  
+  <!-- Page-specific CSS -->
+  <link rel="stylesheet" href="css/impact.css">
   <link rel="stylesheet" href="css/blogs.css">
 </head>
 <body>
+  <!-- Skip to main content link for screen readers -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Toast container for notifications -->
+  <div id="toast-container" class="position-fixed top-0 end-0 p-3" style="z-index: 1080;" aria-live="polite" aria-atomic="true"></div>
+
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" role="navigation" aria-label="Main navigation">
     <div class="container-fluid px-0">
@@ -49,8 +62,17 @@
           <li class="nav-item">
             <a class="nav-link" href="map.html" aria-label="View interactive map">Map</a>
           </li>
+        <li class="nav-item">
+          <a class="nav-link" href="itinerary-planner.html" aria-label="Plan your itinerary">Itinerary Planner</a>
+        </li>
           <li class="nav-item">
             <a class="nav-link active" href="our-impact.html" aria-label="View our environmental impact">Our Impact</a>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" id="tts-toggle" aria-label="Toggle text-to-speech" aria-pressed="false">
+              <i class="fas fa-volume-up" aria-hidden="true"></i>
+              <span>Read Aloud</span>
+            </button>
           </li>
           <li class="nav-item" id="auth-menu-item">
             <a class="nav-link" id="auth-link" href="signUp.html" >
@@ -69,32 +91,32 @@
     </a>
   </div>
 
-  <!-- Impact Hero Section -->
-  <header class="impact-hero" role="banner">
-    <div class="impact-hero-overlay"></div>
-    <div class="container">
-      <div class="row align-items-center min-vh-60">
-        <div class="col-lg-8 mx-auto text-center">
-          <h1>Making Waves of Change</h1>
-          <p class="lead mb-4">Together, we're creating a cleaner, healthier Brighton coastline</p>
-          <div>
-            <a href="#impact-stats" class="btn btn-primary btn-lg">
-              <i class="fas fa-chart-line me-2"></i>See Our Impact
-            </a>
-            <a href="cleanup-events.html" class="btn btn-outline-light btn-lg ms-2">
-              <i class="fas fa-hands-helping me-2"></i>Join Us
-            </a>
+  <!-- Main Content -->
+  <main id="main-content" class="readable-content">
+    <!-- Impact Hero Section -->
+    <header class="impact-hero" role="banner">
+      <div class="impact-hero-overlay"></div>
+      <div class="container">
+        <div class="row align-items-center min-vh-60">
+          <div class="col-lg-8 mx-auto text-center">
+            <h1>Making Waves of Change</h1>
+            <p class="lead mb-4">Together, we're creating a cleaner, healthier Brighton coastline</p>
+            <div>
+              <a href="#impact-stats" class="btn btn-primary btn-lg">
+                <i class="fas fa-chart-line me-2"></i>See Our Impact
+              </a>
+              <a href="cleanup-events.html" class="btn btn-outline-light btn-lg ms-2">
+                <i class="fas fa-hands-helping me-2"></i>Join Us
+              </a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="wave-bottom">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#ffffff" fill-opacity="1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,202.7C672,203,768,181,864,176C960,171,1056,181,1152,176C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
-    </div>
-  </header>
+      <div class="wave-bottom">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#ffffff" fill-opacity="1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,202.7C672,203,768,181,864,176C960,171,1056,181,1152,176C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
+      </div>
+    </header>
 
-  <!-- Main content wrapper for text-to-speech -->
-  <main id="main-content">
     <!-- Impact Statistics -->
     <section id="impact-stats" class="impact-stats py-5" aria-labelledby="impact-stats-heading">
       <div class="container">
@@ -110,7 +132,7 @@
               <div class="stat-icon">
                 <i class="fas fa-users"></i>
               </div>
-              <h3 class="counter">5000</h3>
+              <h3 class="counter">5300</h3>
               <h4>Volunteers Engaged</h4>
               <p>Community members who joined our mission</p>
             </div>
@@ -120,8 +142,8 @@
               <div class="stat-icon">
                 <i class="fas fa-trash"></i>
               </div>
-              <h3 class="counter">15</h3>
-              <h4>Tons of Waste Collected</h4>
+              <h3 class="counter">223.7</h3>
+              <h4>Kilograms of Waste Collected</h4>
               <p>Removed from Brighton's beaches and coastline</p>
             </div>
           </div>
@@ -130,7 +152,7 @@
               <div class="stat-icon">
                 <i class="fas fa-calendar-check"></i>
               </div>
-              <h3 class="counter">200</h3>
+              <h3 class="counter">160</h3>
               <h4>Events Completed</h4>
               <p>Successful beach cleanup events since we began</p>
             </div>
@@ -207,7 +229,7 @@
                 <h3>Innovation & Expansion</h3>
                 <ul class="timeline-stats">
                   <li><i class="fas fa-users"></i> <strong>1,800 Volunteers</strong></li>
-                  <li><i class="fas fa-trash"></i> <strong>3 Tons Collected</strong></li>
+                  <li><i class="fas fa-trash"></i> <strong>73.7 kilograms Collected</strong></li>
                   <li><i class="fas fa-calendar-check"></i> <strong>25 Events</strong></li>
                 </ul>
                 <p>Expanding our impact with innovative waste sorting and recycling initiatives.</p>
@@ -224,7 +246,7 @@
                 <h3>Record Breaking Year</h3>
                 <ul class="timeline-stats">
                   <li><i class="fas fa-users"></i> <strong>1,500 Volunteers</strong></li>
-                  <li><i class="fas fa-trash"></i> <strong>5 Tons Collected</strong></li>
+                  <li><i class="fas fa-trash"></i> <strong>79.3 kilograms Collected</strong></li>
                   <li><i class="fas fa-calendar-check"></i> <strong>60 Events</strong></li>
                 </ul>
                 <p>Record-breaking participation with focus on plastic waste reduction.</p>
@@ -241,7 +263,7 @@
                 <h3>Community Growth</h3>
                 <ul class="timeline-stats">
                   <li><i class="fas fa-users"></i> <strong>1,200 Volunteers</strong></li>
-                  <li><i class="fas fa-trash"></i> <strong>4 Tons Collected</strong></li>
+                  <li><i class="fas fa-trash"></i> <strong>40 kilograms Collected</strong></li>
                   <li><i class="fas fa-calendar-check"></i> <strong>45 Events</strong></li>
                 </ul>
                 <p>Expanded educational programs and community engagement.</p>
@@ -258,7 +280,7 @@
                 <h3>Getting Started</h3>
                 <ul class="timeline-stats">
                   <li><i class="fas fa-users"></i> <strong>800 Volunteers</strong></li>
-                  <li><i class="fas fa-trash"></i> <strong>3 Tons Collected</strong></li>
+                  <li><i class="fas fa-trash"></i> <strong>30.7 kilograms Collected</strong></li>
                   <li><i class="fas fa-calendar-check"></i> <strong>30 Events </strong></li>
                 </ul>
                 <p>The beginning of our organized beach cleanup efforts in Brighton.</p>
@@ -383,62 +405,12 @@
     </div>
   </footer>
 
-  <!-- jQuery -->
+  <!-- Scripts -->
   <script src="js/jquery-3.6.0.min.js"></script>
-
-  <!-- Bootstrap JS -->
   <script src="js/bootstrap.bundle.min.js"></script>
-  
-  <!-- AOS (Animate On Scroll) JS -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  
-  <!-- Counter JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
-  
-  <!-- Custom JS -->
+  <script src="js/text-to-speech.js"></script>
+  <script src="js/impact.js"></script>
   <script src="js/script.js"></script>
-  <script src="js/signUp.js"></script>
-  
-  <script>
-    // Initialize AOS animations
-    AOS.init({
-      duration: 800,
-      once: true
-    });
-    
-    // Initialize counter animation
-    $('.counter').counterUp({
-      delay: 10,
-      time: 1000
-    });
-    
-    // Fix for Chrome anchor buttons - ensure smooth scrolling works across browsers
-    document.addEventListener('DOMContentLoaded', function() {
-      // Get the "See Our Impact" button and add a click handler
-      const impactButton = document.querySelector('a[href="#impact-stats"]');
-      if (impactButton) {
-        impactButton.addEventListener('click', function(e) {
-          e.preventDefault();
-          const targetSection = document.getElementById('impact-stats');
-          if (targetSection) {
-            targetSection.scrollIntoView({ 
-              behavior: 'smooth',
-              block: 'start'
-            });
-          }
-        });
-      }
-      
-      // Handle the "Join Us" button click to ensure it properly navigates
-      const joinButton = document.querySelector('a[href="cleanup-events.html"]');
-      if (joinButton) {
-        joinButton.addEventListener('click', function(e) {
-          // Do not prevent default, but ensure the browser handles it correctly
-          window.location.href = "cleanup-events.html";
-        });
-      }
-    });
-  </script>
 </body>
 </html> 

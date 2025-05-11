@@ -17,6 +17,9 @@
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
+  
+  <!-- Common CSS for consistent components across pages -->
+  <link rel="stylesheet" href="css/common.css">
 </head>
 <body>
   <!-- Skip to main content link for screen readers -->
@@ -54,8 +57,17 @@
           <li class="nav-item">
             <a class="nav-link" href="map.html" aria-label="View interactive map">Map</a>
           </li>
+        <li class="nav-item">
+          <a class="nav-link" href="itinerary-planner.html" aria-label="Plan your itinerary">Itinerary Planner</a>
+        </li>
           <li class="nav-item">
             <a class="nav-link" href="our-impact.html">Our Impact</a>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" id="tts-toggle" aria-label="Toggle text-to-speech" aria-pressed="false">
+              <i class="fas fa-volume-up" aria-hidden="true"></i>
+              <span>Read Aloud</span>
+            </button>
           </li>
           <li class="nav-item" id="auth-menu-item">
             <a class="nav-link" id="auth-link" href="signUp.html" aria-label="Sign in or create account">
@@ -67,8 +79,8 @@
     </div>
   </nav>
 
-  <!-- Calendar Section -->
-  <main id="main-content">
+  <!-- Main Content -->
+  <main id="main-content" class="readable-content">
     <section class="calendar-section" aria-labelledby="calendar-heading" style="padding-top: 100px;">
       <div class="container">
         <div class="row">
@@ -102,7 +114,9 @@
         <div class="modal-body">
           <div class="event-detail-header mb-4">
             <h3 id="eventTitle" class="mb-0"></h3>
-            <div class="event-date-badge" id="eventDateBadge"></div>
+            <div class="event-date-badge" id="eventDateBadge">
+              <span id="eventDate"></span>
+            </div>
           </div>
           
           <div class="event-details-container">
@@ -279,6 +293,7 @@
   <!-- Scripts -->
   <script src="js/jquery-3.6.0.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/text-to-speech.js"></script>
   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
   <script src="js/calendar.js"></script>
   <script src="js/signIn.js"></script>

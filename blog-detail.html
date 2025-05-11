@@ -7,6 +7,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
+  
+  <!-- Common CSS for consistent components across pages -->
+  <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/blogs.css">
 </head>
 <body>
@@ -38,8 +41,17 @@
                     <li class="nav-item">
                         <a class="nav-link" href="map.html">Map</a>
                     </li>
+        <li class="nav-item">
+          <a class="nav-link" href="itinerary-planner.html" aria-label="Plan your itinerary">Itinerary Planner</a>
+        </li>
                     <li class="nav-item">
                         <a class="nav-link" href="our-impact.html">Our Impact</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id="tts-toggle" aria-label="Toggle text-to-speech" aria-pressed="false">
+                            <i class="fas fa-volume-up" aria-hidden="true"></i>
+                            <span>Read Aloud</span>
+                        </button>
                     </li>
                     <li class="nav-item" id="auth-menu-item">
                         <a class="nav-link" id="auth-link" href="signUp.html">
@@ -62,7 +74,7 @@
                 </div>
 
                 <!-- Main content wrapper for text-to-speech -->
-                <main id="main-content">
+                <main id="main-content" class="readable-content">
                     <!-- Blog post content will be loaded here -->
                     <div id="blog-content">
                         <div class="text-center p-5">
@@ -140,20 +152,11 @@
     </footer>
 
 
-    <!-- jQuery and Bootstrap JS are loaded only once -->
+    <!-- Scripts -->
     <script src="js/jquery-3.6.0.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
-
-    <!-- Authentication scripts -->
-    <script src="js/signIn.js"></script>
-    <script src="js/script.js"></script>
-    
-
-    
-    <!-- Load blog detail script first -->
+    <script src="js/text-to-speech.js"></script>
     <script src="js/blog-detail.js"></script>
-    
-    <!-- Then load blogs.js -->
-    <script src="js/blogs.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html> 
