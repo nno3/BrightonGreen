@@ -70,9 +70,20 @@ document.addEventListener('DOMContentLoaded', function() {
     evening: []
   };
   
-  // Only fetch attractions data if we're on the results page or when needed
-  // We'll remove this immediate call to prevent errors on the landing page
-  // fetchAttractions();
+  // Check if we're on the results page
+  if (window.location.pathname.includes('itinerary-results.html')) {
+    // Load saved preferences
+    const preferences = JSON.parse(localStorage.getItem('itineraryPreferences'));
+    if (preferences) {
+      // Fetch attractions and generate itinerary
+      fetchAttractions().then(() => {
+        generatePersonalizedItinerary(preferences);
+      }).catch(error => {
+        console.error('Error loading attractions:', error);
+        showToast('Error loading attractions. Please try again later.', 'error');
+      });
+    }
+  }
   
   // Handle budget slider if it exists
   const budgetSlider = document.getElementById('budget-slider');
@@ -80,11 +91,11 @@ document.addEventListener('DOMContentLoaded', function() {
   
   if (budgetSlider && budgetValue) {
     // Set initial value
-    budgetValue.textContent = '€' + budgetSlider.value;
+    budgetValue.textContent = '£' + budgetSlider.value;
     
     // Update value when slider changes
     budgetSlider.addEventListener('input', function() {
-      budgetValue.textContent = '€' + this.value;
+      budgetValue.textContent = '£' + this.value;
       // Update ARIA attributes for screen readers
       this.setAttribute('aria-valuenow', this.value);
     });
@@ -218,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
    * Fetch attractions from attractions.html
    */
   function fetchAttractions() {
-    fetch('attractions.html')
+    return fetch('attractions.html')
       .then(response => response.text())
       .then(html => {
         const parser = new DOMParser();
@@ -283,10 +294,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (allAttractions.length > 0 || allRestaurants.length > 0) {
           showAttractionPreviews();
         }
-      })
-      .catch(error => {
-        console.error('Error fetching attractions:', error);
-        showToast('Error loading attractions. Please try again later.', 'error');
       });
   }
   

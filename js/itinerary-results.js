@@ -36,28 +36,27 @@ document.addEventListener('DOMContentLoaded', function() {
    * Initialize the page
    */
   function initPage() {
-    // Load preferences from localStorage
-    const preferencesStr = localStorage.getItem('itineraryPreferences');
-    
-    if (!preferencesStr) {
-      showNoPreferencesMessage();
-      return;
-    }
-    
-    try {
-      const preferences = JSON.parse(preferencesStr);
+    // Load saved preferences and generate itinerary
+    const preferences = JSON.parse(localStorage.getItem('itineraryPreferences'));
+    if (preferences) {
+      // Set the date in the current itinerary
+      currentItinerary.date = preferences.visitDate;
       
-      // Fetch attractions data first, then generate itinerary
-      fetchAttractions().then(() => {
-        generatePersonalizedItinerary(preferences);
-      }).catch(error => {
-        console.error('Error fetching attractions:', error);
-        showToast('Error loading attractions. Please try again later.', 'error');
-      });
-      
-    } catch (error) {
-      console.error('Error parsing preferences:', error);
-      showNoPreferencesMessage();
+      // Fetch attractions and generate itinerary
+      fetchAttractions()
+        .then(() => {
+          generatePersonalizedItinerary(preferences);
+        })
+        .catch(error => {
+          console.error('Error loading attractions:', error);
+          showToast('Error loading attractions. Please try again later.', 'error');
+        });
+    } else {
+      // No preferences found, show error message
+      showToast('No preferences found. Please start planning from the beginning.', 'error');
+      setTimeout(() => {
+        window.location.href = 'itinerary-planner.html';
+      }, 2000);
     }
     
     // Set up event listeners
@@ -92,378 +91,122 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   /**
-   * Show message when no preferences are found
-   */
-  function showNoPreferencesMessage() {
-    const container = document.querySelector('.planner-card-body');
-    if (container) {
-      container.innerHTML = `
-        <div class="alert alert-warning" role="alert">
-          <h4 class="alert-heading"><i class="fas fa-exclamation-circle me-2"></i>No Preferences Found</h4>
-          <p>We couldn't find your preferences for generating an itinerary.</p>
-          <hr>
-          <p class="mb-0">Please <a href="itinerary-planner.html" class="alert-link">return to the planner</a> to set your preferences.</p>
-        </div>
-      `;
-    }
-  }
-  
-  /**
    * Fetch attractions from attractions.html
    */
-  async function fetchAttractions() {
-    try {
-      const response = await fetch('attractions.html');
-      const html = await response.text();
-      
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      
-      // Extract regular attractions
-      const attractionCards = doc.querySelectorAll('.attraction-card:not(.restaurant-card)');
-      attractionCards.forEach((card, index) => {
-        const learnMoreBtn = card.querySelector('.learn-more-btn');
-        if (learnMoreBtn) {
-          const price = learnMoreBtn.getAttribute('data-attraction-price') || '££';
-          
-          // Remove £ signs from price
-          const cleanPrice = price.replace(/£/g, '');
-          
-          allAttractions.push({
-            id: `attraction-${index}`,
-            title: learnMoreBtn.getAttribute('data-attraction-title'),
-            image: learnMoreBtn.getAttribute('data-attraction-img'),
-            description: learnMoreBtn.getAttribute('data-attraction-description'),
-            type: 'attraction',
-            price: cleanPrice, // Store price without £ signs
-            location: 'Brighton',
-            features: [],
-            timeEstimate: '2 hours'
-          });
-        }
-      });
-      
-      // Extract restaurants
-      const restaurantCards = doc.querySelectorAll('.restaurant-card');
-      restaurantCards.forEach((card, index) => {
-        const learnMoreBtn = card.querySelector('.learn-more-btn');
-        if (learnMoreBtn) {
-          // Get features from restaurant-info-row spans
-          const features = [];
-          const featureSpans = card.querySelectorAll('.restaurant-feature');
-          featureSpans.forEach(span => {
-            features.push(span.textContent.trim());
-          });
-          
-          // Get price indicator and remove £ signs
-          let price = '2';
-          const priceIndicator = card.querySelector('.price-indicator');
-          if (priceIndicator) {
-            price = priceIndicator.textContent.trim().split(' ')[0].replace(/£/g, '');
+  function fetchAttractions() {
+    return fetch('attractions.html')
+      .then(response => response.text())
+      .then(html => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        
+        // Extract regular attractions
+        const attractionCards = doc.querySelectorAll('.attraction-card:not(.restaurant-card)');
+        attractionCards.forEach((card, index) => {
+          const learnMoreBtn = card.querySelector('.learn-more-btn');
+          if (learnMoreBtn) {
+            allAttractions.push({
+              id: `attraction-${index}`,
+              title: learnMoreBtn.getAttribute('data-attraction-title'),
+              image: learnMoreBtn.getAttribute('data-attraction-img'),
+              description: learnMoreBtn.getAttribute('data-attraction-description'),
+              type: 'attraction',
+              price: '££',
+              location: 'Brighton',
+              features: [],
+              timeEstimate: '2 hours'
+            });
           }
-          
-          allRestaurants.push({
-            id: `restaurant-${index}`,
-            title: learnMoreBtn.getAttribute('data-attraction-title'),
-            image: learnMoreBtn.getAttribute('data-attraction-img'),
-            description: learnMoreBtn.getAttribute('data-attraction-description'),
-            type: 'restaurant',
-            price: price, // Store price without £ signs
-            location: 'Brighton',
-            features: features,
-            timeEstimate: '1.5 hours'
-          });
-        }
+        });
+        
+        // Extract restaurants
+        const restaurantCards = doc.querySelectorAll('.restaurant-card');
+        restaurantCards.forEach((card, index) => {
+          const learnMoreBtn = card.querySelector('.learn-more-btn');
+          if (learnMoreBtn) {
+            // Get features from restaurant-info-row spans
+            const features = [];
+            const featureSpans = card.querySelectorAll('.restaurant-feature');
+            featureSpans.forEach(span => {
+              features.push(span.textContent.trim());
+            });
+            
+            // Get price indicator
+            let price = '££';
+            const priceIndicator = card.querySelector('.price-indicator');
+            if (priceIndicator) {
+              price = priceIndicator.textContent.trim().split(' ')[0];
+            }
+            
+            allRestaurants.push({
+              id: `restaurant-${index}`,
+              title: learnMoreBtn.getAttribute('data-attraction-title'),
+              image: learnMoreBtn.getAttribute('data-attraction-img'),
+              description: learnMoreBtn.getAttribute('data-attraction-description'),
+              type: 'restaurant',
+              price: price,
+              location: 'Brighton',
+              features: features,
+              timeEstimate: '1.5 hours'
+            });
+          }
+        });
+        
+        console.log('Loaded attractions:', allAttractions.length);
+        console.log('Loaded restaurants:', allRestaurants.length);
       });
-      
-      console.log('Loaded attractions:', allAttractions.length);
-      console.log('Loaded restaurants:', allRestaurants.length);
-      
-    } catch (error) {
-      console.error('Error fetching attractions:', error);
-      throw error;
-    }
   }
   
   /**
    * Generate personalized itinerary based on user preferences
    */
   function generatePersonalizedItinerary(preferences) {
-    // Reset current itinerary
-    currentItinerary = {
-      date: preferences.visitDate,
-      morning: [],
-      afternoon: [],
-      evening: []
-    };
-    
     // Filter attractions based on preferences
     let filteredAttractions = [...allAttractions];
     let filteredRestaurants = [...allRestaurants];
     
-    // Filter by budget
+    // Apply budget filtering
     const budgetNum = parseInt(preferences.budget);
-    const lowBudget = budgetNum <= 500;
-    const midBudget = budgetNum > 500 && budgetNum <= 1200;
-    const highBudget = budgetNum > 1200;
-    
-    // Budget-based filtering
-    if (lowBudget) {
-      // Filter for low-cost attractions and restaurants
-      filteredAttractions = filteredAttractions.filter(a => a.price === '1' || a.price === '2');
-      filteredRestaurants = filteredRestaurants.filter(r => r.price === '1' || r.price === '2');
-    } else if (midBudget) {
-      // Include mid-range attractions and restaurants
-      filteredAttractions = filteredAttractions.filter(a => a.price === '2' || a.price === '3');
-      filteredRestaurants = filteredRestaurants.filter(r => r.price === '2' || r.price === '3');
-    } else if (highBudget) {
-      // Include high-end options
-      filteredAttractions = filteredAttractions.filter(a => a.price === '3' || a.price === '4');
-      filteredRestaurants = filteredRestaurants.filter(r => r.price === '3' || r.price === '4');
+    if (budgetNum <= 500) {
+      filteredAttractions = filteredAttractions.filter(a => a.price === '£' || a.price === '££');
+      filteredRestaurants = filteredRestaurants.filter(r => r.price === '£' || r.price === '££');
+    } else if (budgetNum <= 1200) {
+      filteredAttractions = filteredAttractions.filter(a => a.price === '££' || a.price === '£££');
+      filteredRestaurants = filteredRestaurants.filter(r => r.price === '££' || r.price === '£££');
     }
     
-    // Apply activity preferences
-    if (preferences.activityAdventure || preferences.activityCultural || 
-        preferences.activityFood || preferences.activityRelaxation || 
-        preferences.activityShopping) {
-      
-      // Create a new filtered list based on preferences
-      const tempFilteredAttractions = [];
-      
-      for (const attraction of filteredAttractions) {
-        const title = attraction.title.toLowerCase();
-        const description = attraction.description.toLowerCase();
-        
-        // Match adventure activities
-        if (preferences.activityAdventure && 
-            (title.includes('hike') || title.includes('adventure') || 
-             description.includes('hike') || description.includes('adventure') ||
-             description.includes('outdoors') || description.includes('nature') ||
-             description.includes('water sport') || description.includes('trail'))) {
-          tempFilteredAttractions.push(attraction);
-          continue;
-        }
-        
-        // Match cultural activities
-        if (preferences.activityCultural && 
-            (title.includes('museum') || title.includes('gallery') || 
-             title.includes('history') || title.includes('art') || 
-             description.includes('museum') || description.includes('gallery') ||
-             description.includes('history') || description.includes('art') ||
-             description.includes('cultural') || description.includes('historic'))) {
-          tempFilteredAttractions.push(attraction);
-          continue;
-        }
-        
-        // Match food & drink activities
-        if (preferences.activityFood && 
-            (title.includes('food') || title.includes('eating') || 
-             title.includes('tasting') || title.includes('culinary') || 
-             description.includes('food') || description.includes('eating') ||
-             description.includes('tasting') || description.includes('culinary'))) {
-          tempFilteredAttractions.push(attraction);
-          continue;
-        }
-        
-        // Match relaxation activities
-        if (preferences.activityRelaxation && 
-            (title.includes('beach') || title.includes('relax') || 
-             title.includes('spa') || title.includes('wellness') || 
-             description.includes('beach') || description.includes('relax') ||
-             description.includes('spa') || description.includes('wellness'))) {
-          tempFilteredAttractions.push(attraction);
-          continue;
-        }
-        
-        // Match shopping activities
-        if (preferences.activityShopping && 
-            (title.includes('shop') || title.includes('market') || 
-             title.includes('store') || title.includes('mall') || 
-             description.includes('shop') || description.includes('market') ||
-             description.includes('store') || description.includes('mall'))) {
-          tempFilteredAttractions.push(attraction);
-          continue;
-        }
-      }
-      
-      // Replace the filtered attractions with our preference-filtered list
-      if (tempFilteredAttractions.length > 0) {
-        filteredAttractions = tempFilteredAttractions;
-      }
-    }
-    
-    // Apply dietary preferences to restaurants
-    if (preferences.dietaryVegetarian || preferences.dietaryVegan || 
-        preferences.dietaryHalal || preferences.dietaryFastFood || 
-        preferences.dietaryFineDining) {
-      
-      const tempFilteredRestaurants = [];
-      
-      for (const restaurant of filteredRestaurants) {
-        const title = restaurant.title.toLowerCase();
-        const description = restaurant.description.toLowerCase();
-        const features = restaurant.features.map(f => f.toLowerCase());
-        
-        // Match vegetarian options
-        if (preferences.dietaryVegetarian && 
-            (title.includes('vegetarian') || description.includes('vegetarian') ||
-             features.some(f => f.includes('vegetarian')))) {
-          tempFilteredRestaurants.push(restaurant);
-          continue;
-        }
-        
-        // Match vegan options
-        if (preferences.dietaryVegan && 
-            (title.includes('vegan') || description.includes('vegan') ||
-             features.some(f => f.includes('vegan')))) {
-          tempFilteredRestaurants.push(restaurant);
-          continue;
-        }
-        
-        // Match halal options
-        if (preferences.dietaryHalal && 
-            (title.includes('halal') || description.includes('halal') ||
-             features.some(f => f.includes('halal')))) {
-          tempFilteredRestaurants.push(restaurant);
-          continue;
-        }
-        
-        // Match fast food options
-        if (preferences.dietaryFastFood && 
-            (title.includes('fast') || description.includes('fast food') ||
-             features.some(f => f.includes('fast')) || title.includes('quick') ||
-             description.includes('quick'))) {
-          tempFilteredRestaurants.push(restaurant);
-          continue;
-        }
-        
-        // Match fine dining options
-        if (preferences.dietaryFineDining && 
-            (title.includes('fine') || description.includes('fine dining') ||
-             features.some(f => f.includes('fine dining')) || 
-             description.includes('gourmet') || features.some(f => f.includes('award')))) {
-          tempFilteredRestaurants.push(restaurant);
-          continue;
-        }
-      }
-      
-      // Replace the filtered restaurants with our preference-filtered list
-      if (tempFilteredRestaurants.length > 0) {
-        filteredRestaurants = tempFilteredRestaurants;
-      }
-    }
-    
-    // Shuffle the filtered lists for variety
+    // Shuffle arrays for variety
     filteredAttractions = shuffleArray(filteredAttractions);
     filteredRestaurants = shuffleArray(filteredRestaurants);
     
-    // If we don't have enough activities after filtering, add back some original ones
-    if (filteredAttractions.length < 3) {
-      const additionalAttractions = allAttractions.filter(a => 
-        !filteredAttractions.some(fa => fa.id === a.id));
-      filteredAttractions = filteredAttractions.concat(shuffleArray(additionalAttractions).slice(0, 5));
-    }
+    // Add activities to time slots
+    currentItinerary.morning = [];
+    currentItinerary.afternoon = [];
+    currentItinerary.evening = [];
     
-    if (filteredRestaurants.length < 3) {
-      const additionalRestaurants = allRestaurants.filter(r => 
-        !filteredRestaurants.some(fr => fr.id === r.id));
-      filteredRestaurants = filteredRestaurants.concat(shuffleArray(additionalRestaurants).slice(0, 5));
-    }
-    
-    // Add attractions to morning/afternoon slots
-    const morningAttractions = filteredAttractions.slice(0, 2);
-    const afternoonAttractions = filteredAttractions.slice(2, 4);
-    
-    // Add restaurants based on meal preferences
+    // Add morning activities
     if (preferences.mealBreakfast) {
-      // Add breakfast option to morning
-      const breakfastPlace = filteredRestaurants.find(r => 
-        r.title.toLowerCase().includes('breakfast') || 
-        r.description.toLowerCase().includes('breakfast'));
-      
-      if (breakfastPlace) {
-        currentItinerary.morning.unshift(breakfastPlace);
-      } else if (filteredRestaurants.length > 0) {
-        currentItinerary.morning.unshift(filteredRestaurants[0]);
-      }
+      currentItinerary.morning.push(filteredRestaurants[0]);
     }
+    currentItinerary.morning.push(filteredAttractions[0]);
     
-    if (preferences.mealBrunch) {
-      // Add brunch option to late morning
-      const brunchPlace = filteredRestaurants.find(r => 
-        r.title.toLowerCase().includes('brunch') || 
-        r.description.toLowerCase().includes('brunch'));
-      
-      if (brunchPlace) {
-        currentItinerary.morning.push(brunchPlace);
-      } else if (filteredRestaurants.length > 1) {
-        currentItinerary.morning.push(filteredRestaurants[1]);
-      }
-    }
-    
+    // Add afternoon activities
     if (preferences.mealLunch) {
-      // Add lunch option to afternoon
-      const lunchPlace = filteredRestaurants.find(r => 
-        r.title.toLowerCase().includes('lunch') || 
-        r.description.toLowerCase().includes('lunch'));
-      
-      if (lunchPlace) {
-        currentItinerary.afternoon.unshift(lunchPlace);
-      } else if (filteredRestaurants.length > 2) {
-        currentItinerary.afternoon.unshift(filteredRestaurants[2]);
-      }
+      currentItinerary.afternoon.push(filteredRestaurants[1]);
     }
-    
+    currentItinerary.afternoon.push(filteredAttractions[1]);
     if (preferences.mealTea) {
-      // Add tea/coffee option to afternoon
-      const teaPlace = filteredRestaurants.find(r => 
-        r.title.toLowerCase().includes('tea') || r.title.toLowerCase().includes('coffee') ||
-        r.description.toLowerCase().includes('tea') || r.description.toLowerCase().includes('coffee'));
-      
-      if (teaPlace) {
-        currentItinerary.afternoon.push(teaPlace);
-      } else if (filteredRestaurants.length > 3) {
-        currentItinerary.afternoon.push(filteredRestaurants[3]);
-      }
+      currentItinerary.afternoon.push(filteredRestaurants[2]);
     }
     
+    // Add evening activities
     if (preferences.mealDinner) {
-      // Add dinner option to evening
-      const dinnerPlace = filteredRestaurants.find(r => 
-        r.title.toLowerCase().includes('dinner') || 
-        r.description.toLowerCase().includes('dinner'));
-      
-      if (dinnerPlace) {
-        currentItinerary.evening.unshift(dinnerPlace);
-      } else if (filteredRestaurants.length > 4) {
-        currentItinerary.evening.unshift(filteredRestaurants[4]);
-      }
+      currentItinerary.evening.push(filteredRestaurants[3]);
     }
-    
-    // Add remaining attractions
-    currentItinerary.morning = currentItinerary.morning.concat(morningAttractions);
-    currentItinerary.afternoon = currentItinerary.afternoon.concat(afternoonAttractions);
-    
-    // Add evening entertainment
-    if (filteredAttractions.length > 4) {
-      const eveningActivity = filteredAttractions.find(a => 
-        a.title.toLowerCase().includes('show') || a.title.toLowerCase().includes('theater') ||
-        a.title.toLowerCase().includes('cinema') || a.title.toLowerCase().includes('concert') ||
-        a.description.toLowerCase().includes('show') || a.description.toLowerCase().includes('theater') ||
-        a.description.toLowerCase().includes('cinema') || a.description.toLowerCase().includes('concert'));
-      
-      if (eveningActivity) {
-        currentItinerary.evening.push(eveningActivity);
-      } else {
-        currentItinerary.evening.push(filteredAttractions[4]);
-      }
-    }
+    currentItinerary.evening.push(filteredAttractions[2]);
     
     // Update the UI
     updateItineraryUI();
-    
-    // Update itinerary summary
-    updateItinerarySummary(preferences);
   }
   
   /**
@@ -490,51 +233,19 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
       eveningActivities.innerHTML = currentItinerary.evening.map(activity => createActivityCardHtml(activity)).join('');
     }
+    
+    // Enable the add to calendar button
+    if (addToCalendarBtn) {
+      addToCalendarBtn.disabled = false;
+    }
   }
   
   /**
-   * Update the itinerary summary
-   */
-  function updateItinerarySummary(preferences) {
-    if (!itinerarySummary) return;
-    
-    // Format date
-    const dateObj = new Date(preferences.visitDate);
-    const formattedDate = dateObj.toLocaleDateString('en-GB', { 
-      weekday: 'long', 
-      day: 'numeric', 
-      month: 'long', 
-      year: 'numeric' 
-    });
-    
-    // Count activities
-    const totalActivities = currentItinerary.morning.length + 
-                            currentItinerary.afternoon.length + 
-                            currentItinerary.evening.length;
-                            
-    // Count restaurants
-    const restaurants = [
-      ...currentItinerary.morning,
-      ...currentItinerary.afternoon,
-      ...currentItinerary.evening
-    ].filter(item => item.type === 'restaurant').length;
-    
-    // Create the summary HTML
-    const summaryHtml = `
-      <div class="alert alert-success mb-4">
-        <h4 class="alert-heading"><i class="fas fa-calendar-day me-2"></i>${formattedDate}</h4>
-        <p>Your personalized itinerary includes ${totalActivities} activities and ${restaurants} dining options.</p>
-        <p class="mb-0"><small>Start time: ${preferences.startTime} | End time: ${preferences.endTime}</small></p>
-      </div>
-    `;
-    
-    itinerarySummary.innerHTML = summaryHtml;
-  }
-  
-  /**
-   * Generate an activity card HTML
+   * Create HTML for an activity card
    */
   function createActivityCardHtml(activity) {
+    if (!activity) return '';
+    
     return `
       <div class="activity-card" data-id="${activity.id}">
         <div class="activity-thumbnail">
@@ -546,14 +257,9 @@ document.addEventListener('DOMContentLoaded', function() {
           <p class="activity-description">${truncateText(activity.description, 100)}</p>
           <div class="activity-badges">
             <span class="activity-badge">${activity.type === 'attraction' ? 'Attraction' : 'Restaurant'}</span>
-            ${activity.price ? `<span class="activity-badge">${activity.price}</span>` : ''}
+            <span class="activity-badge">${activity.price}</span>
             ${activity.features.slice(0, 2).map(feature => `<span class="activity-badge">${feature}</span>`).join('')}
           </div>
-        </div>
-        <div class="activity-actions">
-          <button class="activity-action-btn remove-activity" title="Remove from itinerary">
-            <i class="fas fa-times"></i>
-          </button>
         </div>
       </div>
     `;
@@ -637,9 +343,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Update the UI
     updateItineraryUI();
-    
-    // Update summary
-    updateItinerarySummary();
   }
   
   /**
@@ -651,9 +354,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Update UI
     updateItineraryUI();
-    
-    // Update summary
-    updateItinerarySummary();
     
     showToast('Activity removed from your itinerary.', 'info');
   }
@@ -717,7 +417,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   /**
-   * Utility to shuffle an array (Fisher-Yates algorithm)
+   * Utility to shuffle an array
    */
   function shuffleArray(array) {
     const newArray = [...array];
@@ -732,7 +432,8 @@ document.addEventListener('DOMContentLoaded', function() {
    * Truncate text with ellipsis
    */
   function truncateText(text, maxLength) {
-    if (!text || text.length <= maxLength) return text || '';
+    if (!text) return '';
+    if (text.length <= maxLength) return text;
     return text.substring(0, maxLength) + '...';
   }
   
@@ -741,6 +442,14 @@ document.addEventListener('DOMContentLoaded', function() {
    */
   function showToast(message, type = 'success') {
     const toastContainer = document.getElementById('toast-container');
+    if (!toastContainer) {
+      // Create toast container if it doesn't exist
+      const container = document.createElement('div');
+      container.id = 'toast-container';
+      container.className = 'toast-container position-fixed bottom-0 end-0 p-3';
+      document.body.appendChild(container);
+    }
+    
     const toast = document.createElement('div');
     toast.className = `toast align-items-center text-white bg-${type === 'error' ? 'danger' : type} border-0`;
     toast.setAttribute('role', 'alert');

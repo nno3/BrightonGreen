@@ -524,7 +524,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                         <div class="modal-footer justify-content-center">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <a href="#" class="btn btn-primary" id="viewBlogBtn">View Blog</a>
+                            <button type="button" class="btn btn-primary" id="viewBlogBtn">View Blog</button>
                         </div>
                     </div>
                 </div>
@@ -628,7 +628,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const imageFiles = imageInput.files;
                 
                 // Add new blog and get the blog id
-                const blogId = addNewBlog(title, author, content, imageFiles);
+                const newBlogId = addNewBlog(title, author, content, imageFiles);
                 
                 // Close the modal
                 const addBlogModal = bootstrap.Modal.getInstance(document.getElementById('addBlogModal'));
@@ -643,15 +643,20 @@ document.addEventListener('DOMContentLoaded', function() {
                     previewContainer.classList.add('d-none');
                 }
                 
-                // Set up the success modal
-                const viewBlogBtn = document.getElementById('viewBlogBtn');
-                if (viewBlogBtn) {
-                    viewBlogBtn.href = `blog-detail.html?id=${blogId}`;
-                }
-                
                 // Show the success modal
                 const successModal = new bootstrap.Modal(document.getElementById('successModal'));
                 successModal.show();
+                
+                // Add click handler for the view blog button
+                const viewBlogBtn = document.getElementById('viewBlogBtn');
+                if (viewBlogBtn) {
+                    viewBlogBtn.onclick = function() {
+                        // Close the success modal
+                        successModal.hide();
+                        // Redirect to the blog detail page
+                        window.location.href = `blog-detail.html?id=${newBlogId}`;
+                    };
+                }
             } else {
                 alert('Please fill in all required fields.');
             }
